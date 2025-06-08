@@ -67,6 +67,12 @@ flutter:
   assets:
     - assets/images/bgimg.jpg
     - assets/images/logoimg.jpg
+    - assets/images/sidebar.png
+    - assets/images/background.png
+    - assets/images/ic_close.png
+    - assets/images/ic_menu.png
+    - assets/images/ic_user.png
+    - assets/images/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
