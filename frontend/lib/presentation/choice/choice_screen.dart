@@ -28,7 +28,7 @@ class ChoiceScreen extends ConsumerWidget {
             const SizedBox(height: 40),
             CustomButton(
               text: 'ፈተና',
-              onPressed: viewModel.onQuizSelected,
+              onPressed: () => viewModel.onQuizSelected(context),
             ),
             const SizedBox(height: 20),
             CustomButton(
