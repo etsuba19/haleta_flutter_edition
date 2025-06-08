@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 final choiceViewModelProvider = Provider<ChoiceViewModel>((ref) {
   return ChoiceViewModel(ref);
@@ -10,9 +11,9 @@ class ChoiceViewModel {
 
   ChoiceViewModel(this.ref);
 
-  void onQuizSelected() {
+  void onQuizSelected(BuildContext context) {
     // TODO: Navigate to quiz screen
-    debugPrint('Member selected — navigate to quiz screen');
+    GoRouter.of(context).go('/category');
   }
 
   void onResourceSelected() {
