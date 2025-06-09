@@ -1,5 +1,5 @@
-import 'package:frontend/domain/add_quiz/entities/quiz.dart';
-import 'package:frontend/domain/add_quiz/repositories/add_quiz_repository.dart';
+import 'package:quiz_admin/domain/add_quiz/entities/quiz.dart';
+import 'package:quiz_admin/domain/add_quiz/repositories/add_quiz_repository.dart';
 
 class CreateQuiz {
   final AddQuizRepository repository;
