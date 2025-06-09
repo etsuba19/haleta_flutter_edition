@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/select_difficulty/entities/difficulty.dart';
+import 'package:frontend/domain/select_difficulty/entities/difficulty.dart';
 
 void main() {
   group('Difficulty Entity', () {
