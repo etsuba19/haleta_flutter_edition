@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/infrastructure/resources/datasources/resources_remote_data_source.dart';
+import 'package:frontend/infrastructure/resources/datasources/resources_remote_data_source.dart';
 
 class MockResourcesRemoteDataSource implements ResourcesRemoteDataSource {
   final List<String> _mockData = ['Resource A', 'Resource B'];
