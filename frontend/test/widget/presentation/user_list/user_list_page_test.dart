@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_admin/presentation/user_list/user_list_page.dart';
+import 'package:frontend/presentation/user_list/user_list_page.dart';
 
 void main() {
   testWidgets('UserListPage shows 7 users and Remove buttons, and Back button works', (tester) async {

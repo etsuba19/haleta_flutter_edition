@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_admin/presentation/select_difficulty/select_difficulty_page.dart';
+import 'package:frontend/presentation/select_difficulty/select_difficulty_page.dart';
 
 void main() {
   testWidgets('SelectDifficultyPage UI renders correctly and handles button taps', (WidgetTester tester) async {
