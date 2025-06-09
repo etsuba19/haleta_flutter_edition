@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/add_quiz/entities/quiz.dart';
+import 'package:frontend/domain/add_quiz/entities/quiz.dart';
 
 void main() {
   test('Quiz entity should hold question and options', () {
