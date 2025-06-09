@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/resources/entities/resource.dart';
+import 'package:frontend/domain/resources/entities/resource.dart';
 
 void main() {
   test('should create Resource entity correctly', () {
