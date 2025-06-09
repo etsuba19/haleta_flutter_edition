@@ -29,7 +29,7 @@ class _CategoryPageState extends State<CategoryPage> {
         // Background image
         Positioned.fill(
           child: Image.asset(
-            'assets/images/background.png',
+            'assets/images/bgimg.jpg',
             fit: BoxFit.cover,
           ),
         ),
@@ -50,7 +50,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 const SizedBox(height: 10),
                 Center(
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logoimg.jpg',
                     width: 180,
                     height: 180,
                   ),
