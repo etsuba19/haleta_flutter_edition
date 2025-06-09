@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:quiz_admin/application/quiz_list/usecases/get_quizzes.dart';
-import 'package:quiz_admin/domain/quiz_list/entities/quiz.dart';
-import 'package:quiz_admin/domain/quiz_list/repositories/quiz_repository.dart';
-import 'package:quiz_admin/presentation/quiz_list/quiz_list_page.dart';
-import 'package:quiz_admin/presentation/quiz_list/quiz_list_controller.dart';
+import 'package:frontend/application/quiz_list/usecases/get_quizzes.dart';
+import 'package:frontend/domain/quiz_list/entities/quiz.dart';
+import 'package:frontend/domain/quiz_list/repositories/quiz_repository.dart';
+import 'package:frontend/presentation/quiz_list/quiz_list_page.dart';
+import 'package:frontend/presentation/quiz_list/quiz_list_controller.dart';
 
 void main() {
   testWidgets('displays quizzes in the list', (WidgetTester tester) async {
