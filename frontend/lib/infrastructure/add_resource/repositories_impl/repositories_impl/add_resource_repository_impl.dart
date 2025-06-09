@@ -1,5 +1,5 @@
-import 'package:quiz_admin/domain/add_resource/repositories/add_resource_repository.dart';
-import 'package:quiz_admin/domain/core/failures/app_failure.dart';
+import 'package:frontend/domain/add_resource/repositories/add_resource_repository.dart';
+import 'package:frontend/domain/core/failures/app_failure.dart';
 import 'package:dartz/dartz.dart';
 
 // Fix this line - ensure NO spaces within the quotes, only characters forming the path
