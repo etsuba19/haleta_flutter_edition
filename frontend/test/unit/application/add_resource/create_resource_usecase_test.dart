@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/application/add_resource/usecases/create_resource.dart';
-import 'package:quiz_admin/domain/add_resource/repositories/add_resource_repository.dart';
-import 'package:quiz_admin/domain/core/failures/app_failure.dart';
+import 'package:frontend/application/add_resource/usecases/create_resource.dart';
+import 'package:frontend/domain/add_resource/repositories/add_resource_repository.dart';
+import 'package:frontend/domain/core/failures/app_failure.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dartz/dartz.dart';
 
