@@ -6,7 +6,7 @@ import '../presentation/home/home_page.dart';
 import '../presentation/quiz/quiz_controller.dart';
 import '../presentation/security_question/security_question_screen.dart';
 import '../presentation/signup/signup_screen.dart';
-import '../presentation/choice/choice_screen.dart';
+import '../presentation/choice/choice_page.dart';
 
 import '../presentation/category/category_page.dart';
 import '../presentation/profile/profile_page.dart';
