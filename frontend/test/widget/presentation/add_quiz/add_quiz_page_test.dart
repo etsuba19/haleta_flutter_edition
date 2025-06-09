@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Import your AddQuizPage and any necessary providers/models
-import 'package:quiz_admin/presentation/add_quiz/add_quiz_page.dart';
+import 'package:frontend/presentation/add_quiz/add_quiz_page.dart';
 
 void main() {
   group('AddQuizPage Widget Tests', () {
