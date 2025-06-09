@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/presentation/resources/resources_page.dart';
-import 'package:quiz_admin/presentation/resources/resources_controller.dart';
-import 'package:quiz_admin/domain/resources/entities/resource.dart';
-import 'package:quiz_admin/application/resources/usecases/get_resources.dart';
-import 'package:quiz_admin/application/resources/usecases/remove_resource.dart';
+import 'package:frontend/presentation/resources/resources_page.dart';
+import 'package:frontend/presentation/resources/resources_controller.dart';
+import 'package:frontend/domain/resources/entities/resource.dart';
+import 'package:frontend/application/resources/usecases/get_resources.dart';
+import 'package:frontend/application/resources/usecases/remove_resource.dart';
 
 void main() {
   testWidgets('ResourcesPage shows list of fake resources', (WidgetTester tester) async {
