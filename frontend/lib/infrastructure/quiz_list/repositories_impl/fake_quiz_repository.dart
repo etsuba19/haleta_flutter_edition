@@ -1,5 +1,5 @@
-import 'package:quiz_admin/domain/quiz_list/entities/quiz.dart';
-import 'package:quiz_admin/domain/quiz_list/repositories/quiz_repository.dart';
+import 'package:frontend/domain/quiz_list/entities/quiz.dart';
+import 'package:frontend/domain/quiz_list/repositories/quiz_repository.dart';
 class FakeQuizRepository implements QuizRepository {
   @override
   Future<List<Quiz>> getQuizzes() async => [];
