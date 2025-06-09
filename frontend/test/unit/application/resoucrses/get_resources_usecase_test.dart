@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';  // Use mocktail here
 
-import 'package:quiz_admin/application/resources/usecases/get_resources.dart';
-import 'package:quiz_admin/domain/resources/entities/resource.dart';
-import 'package:quiz_admin/domain/resources/repositories/resource_repository.dart';
+import 'package:frontend/application/resources/usecases/get_resources.dart';
+import 'package:frontend/domain/resources/entities/resource.dart';
+import 'package:frontend/domain/resources/repositories/resource_repository.dart';
 
 class MockResourceRepository extends Mock implements ResourceRepository {}
 
