@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/application/admin_home/usecases/fetch_dashboard_stats.dart';
-import 'package:quiz_admin/domain/admin_home/entities/admin_stats.dart';
-import 'package:quiz_admin/domain/admin_home/repositories/admin_home_repository.dart';
-import 'package:quiz_admin/domain/core/failures/app_failure.dart';
+import 'package:frontend/application/admin_home/usecases/fetch_dashboard_stats.dart';
+import 'package:frontend/domain/admin_home/entities/admin_stats.dart';
+import 'package:frontend/domain/admin_home/repositories/admin_home_repository.dart';
+import 'package:frontend/domain/core/failures/app_failure.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dartz/dartz.dart';
 
