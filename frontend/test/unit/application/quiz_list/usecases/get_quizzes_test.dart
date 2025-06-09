@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';  // FIXED import
 
-import 'package:quiz_admin/domain/quiz_list/entities/quiz.dart';
-import 'package:quiz_admin/domain/quiz_list/repositories/quiz_repository.dart';
-import 'package:quiz_admin/application/quiz_list/usecases/get_quizzes.dart';
+import 'package:frontend/domain/quiz_list/entities/quiz.dart';
+import 'package:frontend/domain/quiz_list/repositories/quiz_repository.dart';
+import 'package:frontend/application/quiz_list/usecases/get_quizzes.dart';
 
 class MockQuizRepository extends Mock implements QuizRepository {}
 
