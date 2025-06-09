@@ -32,12 +32,12 @@ class SignupScreen extends ConsumerWidget {
             const Text('ለመመዝገብ', style: TextStyle(color: Colors.white, fontSize: 24)),
             const SizedBox(height: 20),
 
-            CustomInputField(
-              hint: 'መለኪያ ስም',
-              icon: Icons.email,
-              onChanged: controller.setEmail,
-            ),
-            const SizedBox(height: 10),
+            // CustomInputField(
+            //   hint: 'መለኪያ ስም',
+            //   icon: Icons.email,
+            //   // onChanged: controller.setEmail,
+            // ),
+            // const SizedBox(height: 10),
 
             CustomInputField(
               hint: 'እባል',

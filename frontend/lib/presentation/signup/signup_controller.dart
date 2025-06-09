@@ -14,11 +14,11 @@ class SignupController extends StateNotifier<void> {
 
   SignupController(this.useCase) : super(null);
 
-  String _email = '';
+  // String _email = '';
   String _username = '';
   String _password = '';
 
-  void setEmail(String value) => _email = value;
+  // void setEmail(String value) => _email = value;
   void setUsername(String value) => _username = value;
   void setPassword(String value) => _password = value;
 
