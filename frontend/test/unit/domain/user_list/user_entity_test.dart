@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/user_list/entities/user.dart';
+import 'package:frontend/domain/user_list/entities/user.dart';
 
 void main() {
   group('User Entity', () {
