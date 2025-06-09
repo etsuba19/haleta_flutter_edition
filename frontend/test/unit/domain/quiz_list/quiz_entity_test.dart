@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/quiz_list/entities/quiz.dart';
+import 'package:frontend/domain/quiz_list/entities/quiz.dart';
 
 void main() {
   group('Quiz Entity', () {
