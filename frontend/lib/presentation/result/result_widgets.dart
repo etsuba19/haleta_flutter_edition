@@ -5,7 +5,7 @@ import 'result_page.dart';
 Widget buildBackground() {
   return Positioned.fill(
     child: Image.asset(
-      'assets/images/background.png',
+      'assets/images/bgimg.jpg',
       fit: BoxFit.cover,
     ),
   );
@@ -20,7 +20,7 @@ Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(
           width: double.infinity,
           child: Center(
             child: Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logoimg.jpg',
               width: 180,
               height: 180,
             ),
