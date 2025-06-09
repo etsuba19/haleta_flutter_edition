@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/presentation/add_resource/add_resource_page.dart';
+import 'package:frontend/presentation/add_resource/add_resource_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
