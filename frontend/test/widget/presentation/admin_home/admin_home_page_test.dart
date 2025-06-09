@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_admin/presentation/admin_home/admin_home_page.dart';
+import 'package:frontend/presentation/admin_home/admin_home_page.dart';
 
 void main() {
   testWidgets('AdminHomePage renders logo and menu buttons', (WidgetTester tester) async {
