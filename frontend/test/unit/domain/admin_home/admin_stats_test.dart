@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/admin_home/entities/admin_stats.dart';
+import 'package:frontend/domain/admin_home/entities/admin_stats.dart';
 
 void main() {
   test('DashboardStats entity should hold correct values', () {
