@@ -30,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Stack(
       children: [
         Positioned.fill(
-          child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
+          child: Image.asset('assets/images/bgimg.jpg', fit: BoxFit.cover),
         ),
         SafeArea(
           child: Padding(
@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: 8),
                 FavoriteButton(),
                 const Spacer(),
-                Image.asset('assets/images/logo.png', width: 170, height: 170),
+                Image.asset('assets/images/logoimg.jpg', width: 170, height: 170),
                 const SizedBox(height: 10),
                 LogoutButton(onPressed: widget.onBackClick),
               ],
