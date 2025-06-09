@@ -1,4 +1,4 @@
-import 'package:quiz_admin/domain/resources/repositories/resource_repository.dart';
+import 'package:frontend/domain/resources/repositories/resource_repository.dart';
 
 class RemoveResource {
   final ResourceRepository repository;
