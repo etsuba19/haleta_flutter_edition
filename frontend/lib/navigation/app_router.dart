@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/login/login_screen.dart';
-import '../presentation/home/home_screen.dart';
+import '../presentation/home/home_page.dart';
 import '../presentation/quiz/quiz_controller.dart';
 import '../presentation/security_question/security_question_screen.dart';
 import '../presentation/signup/signup_screen.dart';
