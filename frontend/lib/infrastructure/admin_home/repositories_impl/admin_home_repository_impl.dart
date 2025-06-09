@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:quiz_admin/domain/admin_home/repositories/admin_home_repository.dart';
-import 'package:quiz_admin/domain/core/failures/app_failure.dart';
-import 'package:quiz_admin/domain/admin_home/entities/admin_stats.dart';
+import 'package:frontend/domain/admin_home/repositories/admin_home_repository.dart';
+import 'package:frontend/domain/core/failures/app_failure.dart';
+import 'package:frontend/domain/admin_home/entities/admin_stats.dart';
 import '../datasources/admin_home_remote_data_source.dart';
 
 class AdminHomeRepositoryImpl implements AdminHomeRepository {
