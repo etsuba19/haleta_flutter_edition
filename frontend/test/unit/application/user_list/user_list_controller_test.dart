@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_admin/presentation/user_list/user_list_controller.dart';
+import 'package:frontend/presentation/user_list/user_list_controller.dart';
 
 void main() {
   group('usersProvider tests', () {
