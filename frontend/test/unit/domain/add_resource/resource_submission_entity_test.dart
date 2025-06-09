@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiz_admin/domain/add_resource/entities/resource.dart';
+import 'package:frontend/domain/add_resource/entities/resource.dart';
 
 void main() {
   group('ResourceSubmission', () {
