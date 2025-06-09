@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/login/login_screen.dart';
+import '../presentation/auth/login_page.dart';
 import '../presentation/home/home_page.dart';
 import '../presentation/quiz/quiz_controller.dart';
 import '../presentation/security_question/security_question_screen.dart';
@@ -20,7 +20,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const HomePage(),
     ),
     GoRoute(
       path: '/login',
