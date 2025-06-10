@@ -1,6 +1,7 @@
 import '../../../domain/auth/repositories/auth_repository.dart';
+// import '../../../domain/user/repositories/user_repository.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
+abstract class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> login({
     required String username,
@@ -12,5 +13,18 @@ class AuthRepositoryImpl implements AuthRepository {
     if (username.isEmpty || password.isEmpty) {
       throw Exception("Missing credentials");
     }
+  }
+}
+
+
+
+
+class UserRepositoryImpl implements UserRepository {
+  final List<String> _usernames = ['demo', 'admin', 'test'];
+
+  @override
+  Future<bool> doesUserExist(String username) async {
+    await Future.delayed(Duration(milliseconds: 500)); // simulate latency
+    return _usernames.contains(username);
   }
 }
