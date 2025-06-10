@@ -4,8 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/presentation/resources/resources_page.dart';
 import 'package:frontend/presentation/resources/resources_controller.dart';
 import 'package:frontend/domain/resources/entities/resource.dart';
-import 'package:frontend/application/resources/usecases/get_resources.dart';
-import 'package:frontend/application/resources/usecases/remove_resource.dart';
 
 void main() {
   testWidgets('ResourcesPage shows list of fake resources', (WidgetTester tester) async {

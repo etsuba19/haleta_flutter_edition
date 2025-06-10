@@ -26,7 +26,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       } else {
         throw Exception('Failed to fetch users');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception('Dio error: ${e.message}');
     }
   }
@@ -39,7 +39,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       if (response.statusCode != 200 && response.statusCode != 204) {
         throw Exception('Failed to delete user with id $id');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception('Dio error: ${e.message}');
     }
   }

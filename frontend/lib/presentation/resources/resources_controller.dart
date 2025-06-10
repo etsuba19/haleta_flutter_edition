@@ -42,7 +42,7 @@ class ResourcesController extends StateNotifier<AsyncValue<List<Resource>>> {
       state = state.whenData(
             (resources) => resources.where((r) => r.id != id).toList(),
       );
-    } catch (error, stackTrace) {
+    } catch (error) {
       // Optional: handle error
     }
   }

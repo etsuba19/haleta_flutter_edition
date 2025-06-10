@@ -9,11 +9,11 @@ class CategoryPage extends StatefulWidget {
   final void Function(String) onDrawerItemClick;
   final String currentPage;
   const CategoryPage({
-    Key? key,
+    super.key,
     required this.onDifficultySelected,
     required this.onDrawerItemClick,
     required this.currentPage,
-  }) : super(key: key);
+  });
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();

@@ -6,7 +6,7 @@ class QuizScreen extends StatefulWidget {
   final QuizViewModel viewModel;
   final VoidCallback onNextClick;
 
-  const QuizScreen({Key? key, required this.viewModel, required this.onNextClick}) : super(key: key);
+  const QuizScreen({super.key, required this.viewModel, required this.onNextClick});
 
   @override
   _QuizScreenState createState() => _QuizScreenState();

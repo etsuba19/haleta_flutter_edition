@@ -64,8 +64,7 @@ class FakeGetQuizzes extends GetQuizzes {
 // Test controller subclass that sets the state immediately to initial quizzes
 class QuizListControllerTest extends QuizListController {
   QuizListControllerTest(
-      GetQuizzes getQuizzes, Ref ref, List<Quiz> initialQuizzes)
-      : super(getQuizzes, ref) {
+      super.getQuizzes, super.ref, List<Quiz> initialQuizzes) {
     state = initialQuizzes;
   }
 }

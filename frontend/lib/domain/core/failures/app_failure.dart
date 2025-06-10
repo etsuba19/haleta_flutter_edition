@@ -5,24 +5,24 @@ abstract class AppFailure extends Equatable {
 
   const AppFailure(this.message);
 
-  factory AppFailure.serverError(String message) = ServerFailure;
+  const factory AppFailure.serverError(String message) = ServerFailure;
 
   @override
   List<Object> get props => [message];
 }
 
 class ServerFailure extends AppFailure {
-  const ServerFailure(String message) : super(message);
+  const ServerFailure(super.message);
 }
 
 class CacheFailure extends AppFailure {
-  const CacheFailure(String message) : super(message);
+  const CacheFailure(super.message);
 }
 
 class NetworkFailure extends AppFailure {
-  const NetworkFailure(String message) : super(message);
+  const NetworkFailure(super.message);
 }
 
 class InvalidInputFailure extends AppFailure {
-  const InvalidInputFailure(String message) : super(message);
+  const InvalidInputFailure(super.message);
 }

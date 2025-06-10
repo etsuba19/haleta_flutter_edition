@@ -158,24 +158,24 @@ class SelectDifficultyPage extends ConsumerWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+        backgroundColor: WidgetStateProperty.resolveWith<Color?>(
               (states) {
-            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+            if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
               return backgroundColor.withOpacity(0.8);
             }
             return backgroundColor;
           },
         ),
-        padding: MaterialStateProperty.all(
+        padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 28, vertical: 5),
         ),
-        minimumSize: MaterialStateProperty.all(const Size(0, 36)),
-        shape: MaterialStateProperty.all(
+        minimumSize: WidgetStateProperty.all(const Size(0, 36)),
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-        elevation: MaterialStateProperty.all(0),
+        elevation: WidgetStateProperty.all(0),
       ),
       child: Text(
         text,

@@ -8,11 +8,11 @@ class QuizContent extends StatelessWidget {
   final void Function(String) onOptionSelected;
 
   const QuizContent({
-    Key? key,
+    super.key,
     required this.viewModel,
     required this.onNextClick,
     required this.onOptionSelected,
-  }) : super(key: key);
+  });
 
   Color getOptionColor(String option) {
     final selectedOption = viewModel.selectedOption;

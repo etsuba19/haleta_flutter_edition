@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../application/favorite/favorite_quiz_notifier.dart';
 
 class FavoriteQuizzesScreen extends StatelessWidget {
-  const FavoriteQuizzesScreen({Key? key}) : super(key: key);
+  const FavoriteQuizzesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

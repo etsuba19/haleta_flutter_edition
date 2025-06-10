@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/presentation/admin_home/admin_home_page.dart';
-import 'package:frontend/presentation/select_difficulty/select_difficulty_page.dart';
 import 'presentation/resources/resources_controller.dart';
-import 'presentation/resources/resources_page.dart';
-import 'application/resources/usecases/resource_usecase_types.dart';
 import 'domain/resources/entities/resource.dart';
 
 void main() {

@@ -13,14 +13,14 @@ class ResultScreen extends StatefulWidget {
   final String currentPage;
 
   const ResultScreen({
-    Key? key,
+    super.key,
     required this.score,
     required this.total,
     required this.onDrawerItemClick,
     required this.onBackClick,
     required this.onNextClick,
     required this.currentPage,
-  }) : super(key: key);
+  });
 
   @override
   _ResultScreenState createState() => _ResultScreenState();

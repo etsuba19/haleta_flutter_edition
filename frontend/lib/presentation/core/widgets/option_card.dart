@@ -6,11 +6,11 @@ class OptionCard extends StatelessWidget {
   final VoidCallback onClick;
 
   const OptionCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.onClick,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
