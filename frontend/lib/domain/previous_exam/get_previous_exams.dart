@@ -1,7 +1,6 @@
-import '../../domain/previous_exam/previous_exam_repository.dart';
+import 'package:frontend/domain/previous_exam/previous_exam_repository.dart';
 
 // import '../repositories/previous_exam_repository.dart';
-import 'previous_exam.dart';
 
 class GetPreviousExam {
   final PreviousExamRepository repository;

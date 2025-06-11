@@ -1,10 +1,21 @@
 import '../../domain/quiz/repositories/quiz_repository.dart';
 import '../../domain/quiz/entities/question.dart';
 import '../../domain/quiz/entities/quiz_session.dart';
+import '../../domain/quiz_list/entities/quiz.dart';
 import 'quiz_service.dart';
 
 class QuizRepositoryImpl implements QuizRepository {
   final QuizService _quizService = QuizService();
+  
+  @override
+  Future<List<Quiz>> fetchQuizzes() async {
+    // Get all quizzes from the service
+    final quizzesData = await _quizService.getAllQuizzes();
+    return quizzesData.map((data) => Quiz(
+      id: data['_id'] ?? '',
+      title: data['title'] ?? '',
+    )).toList();
+  }
   
   @override
   Future<Map<String, dynamic>> getQuizById(String id) async {

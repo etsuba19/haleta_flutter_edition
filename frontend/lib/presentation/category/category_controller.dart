@@ -1,19 +1,31 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// lib/presentation/category/category_controller.dart
+import 'package:flutter/material.dart';
 import '../../domain/category/entities/category.dart';
-import '../../infrastructure/category/category_provider.dart';
+import '../../application/category/usecases/fetch_categories.dart';
+import '../../infrastructure/category/datasources/category_remote_data_source.dart';
+import '../../infrastructure/category/repositories_impl/category_repository_impl.dart';
 
-class CategoryController {
-  final Ref _ref;
+class CategoryController with ChangeNotifier {
+  final FetchCategories fetchCategories;
 
-  CategoryController(this._ref);
+  CategoryController()
+      : fetchCategories = FetchCategories(
+    CategoryRepositoryImpl(CategoryRemoteDataSourceImpl()),
+  );
 
-  Future<List<Category>> getCategories() async {
-    return await _ref.read(categoryControllerProvider).getCategories();
-  }
+  List<Category> _categories = [];
+  List<Category> get categories => _categories;
 
-  Future<List<Map<String, dynamic>>> getQuizzesByCategory(String categoryId) async {
-    return await _ref.read(categoryControllerProvider).getQuizzesByCategory(categoryId);
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  Future<void> loadCategories() async {
+    _isLoading = true;
+    notifyListeners();
+
+    _categories = await fetchCategories();
+
+    _isLoading = false;
+    notifyListeners();
   }
 }
-
-final categoryControllerProvider = Provider((ref) => CategoryController(ref));

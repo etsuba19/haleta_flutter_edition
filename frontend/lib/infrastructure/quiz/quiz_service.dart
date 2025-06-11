@@ -4,6 +4,25 @@ import '../core/network/http_client.dart';
 class QuizService {
   final HttpClient _httpClient = HttpClient();
 
+  // Get all quizzes
+  Future<List<Map<String, dynamic>>> getAllQuizzes() async {
+    try {
+      final response = await _httpClient.dio.get('/quiz');
+      
+      if (response.statusCode == 200) {
+        return List<Map<String, dynamic>>.from(response.data['quizzes'] ?? []);
+      } else {
+        throw Exception('Failed to get quizzes');
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw Exception(e.response?.data['message'] ?? 'Failed to get quizzes');
+      } else {
+        throw Exception('Network error');
+      }
+    }
+  }
+
   // Get quiz by ID
   Future<Map<String, dynamic>> getQuizById(String id) async {
     try {

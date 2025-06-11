@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import '../lib/application/favorite/view_favorite_quiz.dart';
-import '../lib/domain/favorite/favorite_quiz.dart';
-import '../lib/domain/favorite/favorite_quiz_repository.dart';
+import 'package:frontend/application/favorite/view_favorite_quiz.dart';
+import 'package:frontend/domain/favorite/favorite_quiz.dart';
+import 'package:frontend/domain/favorite/favorite_quiz_repository.dart';
 
 // Mock class
 class MockFavoriteQuizRepository extends Mock implements FavoriteQuizRepository {}

@@ -1,19 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 import '../../../domain/choice/repositories/choice_repository.dart';
+import '../datasources/choice_remote_data_source.dart';
 
 class ChoiceRepositoryImpl implements ChoiceRepository {
-  final BuildContext context;
+  final ChoiceRemoteDataSource remoteDataSource;
 
-  ChoiceRepositoryImpl(this.context);
+  // Inject the remoteDataSource directly
+  ChoiceRepositoryImpl(this.remoteDataSource);
 
   @override
-  void goToQuiz() {
-    GoRouter.of(context).go('/category');
+  Future<void> goToQuiz() async {
+    await remoteDataSource.navigateToQuiz();
   }
 
   @override
-  void goToResources() {
-    GoRouter.of(context).go('/resources');
+  Future<void> goToResources() async {
+    await remoteDataSource.navigateToResources();
   }
 }

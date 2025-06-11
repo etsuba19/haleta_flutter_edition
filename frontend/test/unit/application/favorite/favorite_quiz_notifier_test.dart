@@ -5,7 +5,7 @@ import 'package:frontend/application/favorite/view_favorite_quiz.dart';
 import 'package:frontend/application/favorite/continue_favorite_quiz.dart';
 import 'package:frontend/domain/favorite/favorite_quiz.dart';
 
-// Mock classes
+// Mock classes using mocktail
 class MockViewFavoriteQuiz extends Mock implements ViewFavoriteQuiz {}
 class MockContinueFavoriteQuiz extends Mock implements ContinueFavoriteQuiz {}
 
@@ -21,6 +21,9 @@ void main() {
       viewUseCase: mockViewUseCase,
       continueUseCase: mockContinueUseCase,
     );
+
+    // Register fallback value for FavoriteQuiz
+    registerFallbackValue(FavoriteQuiz(id: '', title: '', description: ''));
   });
 
   test('onViewClicked calls viewUseCase with correct quiz ID', () {
@@ -28,11 +31,14 @@ void main() {
     notifier.updateFirstQuizId(id);
 
     final expectedQuiz = FavoriteQuiz(id: id, title: '', description: '');
-    when(() => mockViewUseCase.call(any())).thenAnswer((_) async => Future.value());
+
+    // Return a Future<void>, not null
+    when(() => mockViewUseCase.call(expectedQuiz))
+        .thenAnswer((_) async {});
 
     notifier.onViewClicked();
 
-    verify(() => mockViewUseCase.call(any())).called(1);
+    verify(() => mockViewUseCase.call(expectedQuiz)).called(1);
   });
 
   test('onContinueClicked calls continueUseCase with correct quiz ID', () {
@@ -40,11 +46,13 @@ void main() {
     notifier.updateSecondQuizId(id);
 
     final expectedQuiz = FavoriteQuiz(id: id, title: '', description: '');
-    when(() => mockContinueUseCase.call(any())).thenAnswer((_) async => Future.value());
+
+    when(() => mockContinueUseCase.call(expectedQuiz))
+        .thenAnswer((_) async {});
 
     notifier.onContinueClicked();
 
-    verify(() => mockContinueUseCase.call(any())).called(1);
+    verify(() => mockContinueUseCase.call(expectedQuiz)).called(1);
   });
 }
 

@@ -14,13 +14,16 @@ void main() {
   setUp(() {
     mockDataSource = MockLocalPreviousExamDataSource();
     repository = PreviousExamRepositoryImpl(mockDataSource);
+
+    // Register fallback value for PreviousExam if needed
+    registerFallbackValue(PreviousExam(id: 'fallback'));
   });
 
   test('viewExam should call getExamById with correct ID', () async {
     final exam = PreviousExam(id: 'exam123');
 
     when(() => mockDataSource.getExamById(any()))
-      .thenReturn(exam);
+        .thenReturn(exam);
 
     await repository.viewExam(exam);
 

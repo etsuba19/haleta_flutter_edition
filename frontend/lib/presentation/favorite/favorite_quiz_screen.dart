@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/favorite/favorite_quiz_notifier.dart';
-import 'favorite_quiz_widgets.dart';
 
 // Define a provider for the FavoriteQuizNotifier
 final favoriteQuizNotifierProvider = ChangeNotifierProvider<FavoriteQuizNotifier>((ref) {
@@ -26,16 +25,23 @@ class FavoriteQuizzesScreen extends ConsumerWidget {
     final buttonBackground = const Color(0xFFFFE4E1);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,       // This is correct and should remain
+      // extendBodyBehindNavigationBar: true, // <--- THIS LINE HAS BEEN REMOVED TO FIX YOUR ERROR
+      backgroundColor: Colors.transparent, // This is correct and should remain
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, // This is correct and should remain
+        elevation: 0, // This is correct and should remain
+      ),
       body: Stack(
         children: [
+          // Background image now truly fills the entire Scaffold body
           Positioned.fill(
             child: Image.asset(
-              'assets/bg_img.jpg',
-              fit: BoxFit.cover,
+              'assets/images/bgimg.jpg',
+              fit: BoxFit.cover, // Ensures the image covers the entire area
             ),
           ),
 
-          // ✅ SafeArea + Scrollable content
           SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -45,7 +51,7 @@ class FavoriteQuizzesScreen extends ConsumerWidget {
                   children: [
                     const SizedBox(height: 20),
                     Image.asset(
-                      'assets/logoimg.jpg',
+                      'assets/images/logoimg.jpg',
                       height: 150,
                     ),
                     const SizedBox(height: 20),

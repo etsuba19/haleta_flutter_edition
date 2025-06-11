@@ -11,22 +11,29 @@ Widget buildBackground() {
   );
 }
 
-Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(void Function()) setState) {
+Widget buildResultBody(BuildContext context, ResultScreen widget) {
+  final buttonStyle = ElevatedButton.styleFrom(
+    backgroundColor: const Color(0xFFF8DDE0),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  );
+
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
     child: Column(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: Center(
-            child: Image.asset(
-              'assets/images/logoimg.jpg',
-              width: 180,
-              height: 180,
-            ),
+        // Logo Image
+        Center(
+          child: Image.asset(
+            'assets/images/logoimg.jpg',
+            width: 180,
+            height: 180,
           ),
         ),
         const SizedBox(height: 40),
+
+        // Score Box
         Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 32),
@@ -44,6 +51,8 @@ Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(
           ),
         ),
         const SizedBox(height: 45),
+
+        // Result Header
         Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -61,6 +70,8 @@ Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(
           ),
         ),
         const SizedBox(height: 20),
+
+        // Result Explanation
         Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
@@ -79,19 +90,15 @@ Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(
           ),
         ),
         const SizedBox(height: 80),
+
+        // Buttons
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 25),
+                padding: const EdgeInsets.only(right: 12),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF8DDE0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+                  style: buttonStyle,
                   onPressed: () => GoRouter.of(context).go('/category'),
                   child: const Text(
                     'ደግመህ ውሰድ',
@@ -102,14 +109,9 @@ Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 25),
+                padding: const EdgeInsets.only(left: 12),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF8DDE0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+                  style: buttonStyle,
                   onPressed: widget.onNextClick,
                   child: const Text(
                     'ጨርስ',
@@ -124,4 +126,3 @@ Widget buildResultBody(BuildContext context, ResultScreen widget, void Function(
     ),
   );
 }
-

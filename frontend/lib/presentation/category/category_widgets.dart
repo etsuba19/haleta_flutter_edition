@@ -1,3 +1,4 @@
+// category_widgets.dart
 import 'package:flutter/material.dart';
 
 Widget buildBackButton(BuildContext context) {
@@ -25,4 +26,3 @@ Widget buildBackButton(BuildContext context) {
     ),
   );
 }
-

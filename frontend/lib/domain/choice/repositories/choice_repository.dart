@@ -1,5 +1,5 @@
-abstract class ChoiceRepository {
-  void goToQuiz();
-  void goToResources();
-}
 
+abstract class ChoiceRepository {
+  Future<void> goToQuiz();
+  Future<void> goToResources();
+}

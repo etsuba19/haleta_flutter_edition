@@ -4,7 +4,7 @@ import 'package:frontend/domain/favorite/get_favorite_exams.dart';
 import 'package:frontend/domain/favorite/favorite_quiz.dart';
 import 'package:frontend/infrastructure/favorite/local_favorite_quiz_datasource.dart';
 
-// Mock class
+// Mock class using mocktail
 class MockLocalFavoriteQuizDataSource extends Mock implements LocalFavoriteQuizDataSource {}
 
 void main() {
@@ -22,17 +22,15 @@ void main() {
       FavoriteQuiz(id: '1', title: 'Quiz 1', description: 'Description 1'),
       FavoriteQuiz(id: '2', title: 'Quiz 2', description: 'Description 2'),
     ];
-    
+
+    // Since getFavorites() returns List<FavoriteQuiz> synchronously,
+    // use thenReturn instead of thenAnswer
     when(() => mockDataSource.getFavorites()).thenReturn(mockQuizzes);
-    
-    // Act
-    final result = await useCase.call();
-    
-    // Assert
-    expect(result, equals(mockQuizzes));
+
+    final result = useCase.call();
+
+    expect(result, mockQuizzes);
     verify(() => mockDataSource.getFavorites()).called(1);
     verifyNoMoreInteractions(mockDataSource);
   });
 }
-
-

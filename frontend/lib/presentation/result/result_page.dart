@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../category/category_widgets.dart';
 import '../core/widgets/SidebarDrawer.dart';
-import 'result_controller.dart';
 import 'result_widgets.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -42,9 +40,6 @@ class _ResultScreenState extends State<ResultScreen> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -60,7 +55,8 @@ class _ResultScreenState extends State<ResultScreen> {
               onPressed: openDrawer,
             ),
           ),
-          body: buildResultBody(context, widget, setState),
+          // Pass only context and widget here
+          body: buildResultBody(context, widget),
         ),
         if (isDrawerOpen)
           SidebarDrawer(
@@ -68,7 +64,6 @@ class _ResultScreenState extends State<ResultScreen> {
             onItemClick: handleDrawerItemClick,
             onClose: closeDrawer,
           ),
-
       ],
     );
   }

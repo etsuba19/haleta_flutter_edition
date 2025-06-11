@@ -6,7 +6,7 @@ import 'forgot_password_controller.dart';
 class ForgotPasswordWidget extends StatefulWidget {
   final void Function(String username) onSuccess;
 
-  const ForgotPasswordWidget({Key? key, required this.onSuccess}) : super(key: key);
+  const ForgotPasswordWidget({super.key, required this.onSuccess});
 
   @override
   _ForgotPasswordWidgetState createState() => _ForgotPasswordWidgetState();

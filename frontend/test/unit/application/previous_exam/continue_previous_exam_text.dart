@@ -117,4 +117,4 @@ void main() {
     await tester.pump();
     verify(() => mockNotifier.onContinueClicked()).called(1);
   });
-} 
+}

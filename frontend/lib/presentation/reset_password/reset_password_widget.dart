@@ -8,10 +8,10 @@ class ResetPasswordWidget extends StatefulWidget {
   final void Function() onSuccess;
 
   const ResetPasswordWidget({
-    Key? key,
+    super.key,
     required this.username,
     required this.onSuccess,
-  }) : super(key: key);
+  });
 
   @override
   _ResetPasswordWidgetState createState() => _ResetPasswordWidgetState();

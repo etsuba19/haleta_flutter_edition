@@ -68,7 +68,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) {
         return CategoryPage(
           currentPage: 'ጥያቄ - ፈተና ክብደት',
-          onDifficultySelected: () {
+          onDifficultySelected: (String selectedCategory) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (context.mounted) {
                 context.go('/quiz', extra: {

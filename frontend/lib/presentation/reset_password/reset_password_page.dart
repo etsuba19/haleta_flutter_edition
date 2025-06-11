@@ -5,7 +5,7 @@ import 'reset_password_widget.dart';
 class ResetPasswordPage extends StatelessWidget {
   final String username;
   
-  const ResetPasswordPage({Key? key, required this.username}) : super(key: key);
+  const ResetPasswordPage({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {

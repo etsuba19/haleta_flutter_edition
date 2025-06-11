@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'forgot_password_widget.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  const ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {

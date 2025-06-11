@@ -1,8 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/previous_exam/previous_exam.dart';
 import '../../presentation/previous_exam/previous_exam_controller.dart';
-import 'view_previous_exam.dart';
-import 'continue_previous_exam.dart';
 
 class PreviousExamState {
   final String firstQuizId;

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'navigation/app_router.dart';
 import 'infrastructure/auth/auth_provider.dart';
-import 'infrastructure/resources/resource_provider.dart';
-import 'infrastructure/quiz_list/quiz_provider.dart';
 
 void main() async {
   // Ensure Flutter is initialized

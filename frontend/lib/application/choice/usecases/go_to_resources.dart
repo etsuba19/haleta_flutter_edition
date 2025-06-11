@@ -5,7 +5,7 @@ class GoToResources {
 
   GoToResources(this.repository);
 
-  void call() {
-    repository.goToResources();
+  Future<void> call() async {
+    await repository.goToResources();
   }
 }

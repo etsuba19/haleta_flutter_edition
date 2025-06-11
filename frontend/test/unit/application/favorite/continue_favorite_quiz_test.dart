@@ -15,18 +15,29 @@ void main() {
     setUp(() {
       mockRepository = MockFavoriteQuizRepository();
       useCase = ContinueFavoriteQuiz(mockRepository);
+
+      // Register fallback value for FavoriteQuiz with required description
+      registerFallbackValue(FavoriteQuiz(
+        id: '0',
+        title: 'Fallback Quiz',
+        description: 'Fallback description',
+      ));
     });
 
     test('calls repository.continueQuiz with the correct quiz', () async {
-      final quiz = FavoriteQuiz(id: '1', title: 'Math Quiz', description: 'Test description');
+      final quiz = FavoriteQuiz(
+        id: '1',
+        title: 'Math Quiz',
+        description: 'Some description',
+      );
 
-      // Stub the method using mocktail syntax
-      when(() => mockRepository.continueQuiz(any())).thenAnswer((_) async => Future.value());
+      // Stub the method to return a future
+      when(() => mockRepository.continueQuiz(quiz)).thenAnswer((_) async {});
 
       await useCase.call(quiz);
 
       // Verify the interaction
-      verify(() => mockRepository.continueQuiz(any())).called(1);
+      verify(() => mockRepository.continueQuiz(quiz)).called(1);
     });
   });
 }
