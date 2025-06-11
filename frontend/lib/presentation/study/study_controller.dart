@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/study/entities/study_topic.dart';
 import '../../application/study/study_notifier.dart';
+import '../topic_detail/topic_detail_page.dart';
 import 'study_provider.dart';
 
 class StudyController {
@@ -8,14 +10,20 @@ class StudyController {
 
   StudyController(this.ref);
 
-  void onTopicSelected(StudyTopic topic) {
+  void onTopicSelected(StudyTopic topic, BuildContext context) {
     // Update UI state
     ref.read(studyUIProvider.notifier).selectTopic(topic);
     
-    // Handle navigation to topic details or study materials
-    print('Navigating to topic: ${topic.title}');
-    // TODO: Implement navigation logic here
-    // Example: context.go('/study/${topic.id}');
+    // Navigate to topic detail page
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TopicDetailPage(
+          topicId: topic.id,
+          topicTitle: topic.title,
+          topicAmharicTitle: topic.amharicTitle,
+        ),
+      ),
+    );
   }
 
   void onBackPressed() {

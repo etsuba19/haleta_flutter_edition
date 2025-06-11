@@ -315,7 +315,7 @@ class _StudyPageState extends ConsumerState<StudyPage> {
         borderRadius: BorderRadius.circular(25),
         child: InkWell(
           borderRadius: BorderRadius.circular(25),
-          onTap: () => controller.onTopicSelected(topic),
+          onTap: () => controller.onTopicSelected(topic, context),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),

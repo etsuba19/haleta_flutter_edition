@@ -1,4 +1,5 @@
 import '../../../domain/study/entities/study_topic.dart';
+import '../../../domain/study/entities/study_topic_detail.dart';
 import '../../../domain/study/repositories/study_repository.dart';
 import '../datasources/study_remote_data_source.dart';
 
@@ -19,5 +20,10 @@ class StudyRepositoryImpl implements StudyRepository {
       (topic) => topic.id == id,
       orElse: () => throw Exception('Study topic not found'),
     );
+  }
+
+  @override
+  Future<StudyTopicDetail> getStudyTopicDetail(String id) {
+    return remoteDataSource.getStudyTopicDetail(id);
   }
 } 
