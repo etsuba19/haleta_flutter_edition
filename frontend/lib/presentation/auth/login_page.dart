@@ -63,9 +63,20 @@ class LoginScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               const Text('ለመግባት', style: TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold)),
               const SizedBox(height: 32),
-              LoginInputField(icon: Icons.person, hintText: 'ስም', onChanged: vm.setUsername),
+              LoginInputField(
+                icon: Icons.person, 
+                hintText: 'ስም', 
+                onChanged: vm.setUsername,
+                testKey: const Key('login_username_field'),
+              ),
               const SizedBox(height: 16),
-              LoginInputField(icon: Icons.vpn_key, hintText: 'የሚስጥር ቁጥር', obscureText: true, onChanged: vm.setPassword),
+              LoginInputField(
+                icon: Icons.vpn_key, 
+                hintText: 'የሚስጥር ቁጥር', 
+                obscureText: true, 
+                onChanged: vm.setPassword,
+                testKey: const Key('login_password_field'),
+              ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,6 +90,7 @@ class LoginScreen extends ConsumerWidget {
                 ? const CircularProgressIndicator(color: Colors.white)
                 : CustomButton(
                     text: 'ግባ',
+                    key: const Key('login_button'),
                     onPressed: () async {
                       await vm.login();
                     },
@@ -93,6 +105,7 @@ class LoginScreen extends ConsumerWidget {
               const SizedBox(height: 8),
               CustomButton(
                 text: 'ይመዝገቡ',
+                key: const Key('signup_button'),
                 onPressed: () => context.go('/signup'),
               ),
             ],

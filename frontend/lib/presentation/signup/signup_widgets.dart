@@ -5,6 +5,7 @@ class CustomInputField extends StatelessWidget {
   final IconData icon;
   final bool obscureText;
   final void Function(String) onChanged;
+  final Key? testKey;
 
   const CustomInputField({
     super.key,
@@ -12,11 +13,13 @@ class CustomInputField extends StatelessWidget {
     required this.icon,
     this.obscureText = false,
     required this.onChanged,
+    this.testKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      key: testKey,
       obscureText: obscureText,
       decoration: InputDecoration(
         filled: true,

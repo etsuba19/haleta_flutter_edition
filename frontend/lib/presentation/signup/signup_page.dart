@@ -51,6 +51,7 @@ class SignupScreen extends ConsumerWidget {
                 hint: 'የተጠቃሚ ስም',
                 icon: Icons.person,
                 onChanged: controller.setUsername,
+                testKey: const Key('signup_username_field'),
               ),
               const SizedBox(height: 10),
 
@@ -59,6 +60,7 @@ class SignupScreen extends ConsumerWidget {
                 icon: Icons.vpn_key,
                 obscureText: true,
                 onChanged: controller.setPassword,
+                testKey: const Key('signup_password_field'),
               ),
               const SizedBox(height: 20),
 
@@ -66,6 +68,7 @@ class SignupScreen extends ConsumerWidget {
                   ? const CircularProgressIndicator(color: Colors.white)
                   : CustomButton(
                       text: 'ቀጥል',
+                      key: const Key('signup_continue_button'),
                       onPressed: () async {
                         final isValid = await controller.validateAndProceed();
                         if (isValid) {

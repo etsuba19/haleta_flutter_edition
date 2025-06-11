@@ -5,6 +5,7 @@ class LoginInputField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final Function(String) onChanged;
+  final Key? testKey;
 
   const LoginInputField({
     super.key,
@@ -12,11 +13,13 @@ class LoginInputField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     required this.onChanged,
+    this.testKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      key: testKey,
       obscureText: obscureText,
       onChanged: onChanged,
       decoration: InputDecoration(

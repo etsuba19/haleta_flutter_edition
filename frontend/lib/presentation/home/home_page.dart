@@ -31,6 +31,7 @@ class HomePage extends ConsumerWidget {
             const SizedBox(height: 24),
             CustomButton(
               text: 'አስጀምር',
+              key: const Key('start_button'),
               onPressed: () {
                 ref.read(homeControllerProvider.notifier).startApp();
                 GoRouter.of(context).go('/login');
