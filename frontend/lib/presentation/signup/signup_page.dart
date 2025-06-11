@@ -11,6 +11,20 @@ class SignupScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(signupControllerProvider.notifier);
+    final state = ref.watch(signupControllerProvider);
+
+    // Show error message if present
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (state.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.errorMessage!),
+            backgroundColor: Colors.red,
+          ),
+        );
+        controller.clearError();
+      }
+    });
 
     return Scaffold(
       body: Container(
@@ -23,49 +37,56 @@ class SignupScreen extends ConsumerWidget {
           ),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 10),
-            Image.asset('assets/images/logoimg.jpg', height: 80),
-            const SizedBox(height: 16),
-            const Text('ለመመዝገብ', style: TextStyle(color: Colors.white, fontSize: 24)),
-            const SizedBox(height: 20),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 10),
+              Image.asset('assets/images/logoimg.jpg', height: 80),
+              const SizedBox(height: 16),
+              const Text('ለመመዝገብ', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
 
-            // CustomInputField(
-            //   hint: 'መለኪያ ስም',
-            //   icon: Icons.email,
-            //   // onChanged: controller.setEmail,
-            // ),
-            // const SizedBox(height: 10),
+              CustomInputField(
+                hint: 'የተጠቃሚ ስም',
+                icon: Icons.person,
+                onChanged: controller.setUsername,
+              ),
+              const SizedBox(height: 10),
 
-            CustomInputField(
-              hint: 'እባል',
-              icon: Icons.person,
-              onChanged: controller.setUsername,
-            ),
-            const SizedBox(height: 10),
+              CustomInputField(
+                hint: 'የይለፍ ቃል',
+                icon: Icons.vpn_key,
+                obscureText: true,
+                onChanged: controller.setPassword,
+              ),
+              const SizedBox(height: 20),
 
-            CustomInputField(
-              hint: 'የይለፍ ቃል',
-              icon: Icons.vpn_key,
-              obscureText: true,
-              onChanged: controller.setPassword,
-            ),
-            const SizedBox(height: 20),
+              state.isLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : CustomButton(
+                      text: 'ቀጥል',
+                      onPressed: () async {
+                        final isValid = await controller.validateAndProceed();
+                        if (isValid) {
+                          context.go('/security-question', extra: {
+                            'isSignup': true,
+                            'username': state.username,
+                            'password': state.password,
+                          });
+                        }
+                      },
+                    ),
+              const SizedBox(height: 20),
 
-            CustomButton(
-              text: 'ቀጥል',
-              onPressed: () => GoRouter.of(context).go('/security-question'),
-            ),
-            const SizedBox(height: 20),
-
-            const Text('ከዚህ በፊት ተመዝግበዋል?', style: TextStyle(color: Colors.white, fontSize: 18)),
-            CustomButton(
-              text: 'ይግቡ',
-              onPressed: () => GoRouter.of(context).go('/signin'),
-            ),
-          ],
+              const Text('ከዚህ በፊት ተመዝግበዋል?', style: TextStyle(color: Colors.white, fontSize: 18)),
+              const SizedBox(height: 8),
+              CustomButton(
+                text: 'ይግቡ',
+                onPressed: () => context.go('/login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
