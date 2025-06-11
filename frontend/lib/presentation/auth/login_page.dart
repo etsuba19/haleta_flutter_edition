@@ -33,9 +33,14 @@ class LoginScreen extends ConsumerWidget {
         );
       }
       
-      // Navigate to home if authenticated
-      if (state.isAuthenticated) {
-        context.go('/choice');
+      // Navigate based on user role if authenticated
+      if (state.isAuthenticated && state.userData != null) {
+        final userRole = state.userData!['role'] as String? ?? 'student';
+        if (userRole == 'admin') {
+          context.go('/admin-home');
+        } else {
+          context.go('/choice');
+        }
       }
     });
 
@@ -74,19 +79,21 @@ class LoginScreen extends ConsumerWidget {
                 ? const CircularProgressIndicator(color: Colors.white)
                 : CustomButton(
                     text: 'ግባ',
-                    onPressed: () => vm.login(),
+                    onPressed: () async {
+                      await vm.login();
+                    },
                   ),
               const SizedBox(height: 12),
               CustomButton(
-                text: 'የሚስጥር ቁጥር ከረሱ', 
-                onPressed: () => GoRouter.of(context).go('/forgot-password'),
+                text: 'ይለፍ ቃል ከረሱ', 
+                onPressed: () => context.go('/forgot-password'),
               ),
               const SizedBox(height: 24),
               const Text('አካውንት የሎትም?', style: TextStyle(color: Color(0xFFF0DDE0))),
               const SizedBox(height: 8),
               CustomButton(
                 text: 'ይመዝገቡ',
-                onPressed: () => GoRouter.of(context).go('/signup'),
+                onPressed: () => context.go('/signup'),
               ),
             ],
           ),

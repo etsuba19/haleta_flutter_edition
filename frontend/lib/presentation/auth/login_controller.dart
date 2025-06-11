@@ -18,7 +18,7 @@ class LoginController extends StateNotifier<LoginState> {
     state = state.copyWith(role: value);
   }
 
-  Future<bool> login() async {
+  Future<Map<String, dynamic>?> login() async {
     state = state.copyWith(isLoading: true, errorMessage: null);
     
     try {
@@ -29,11 +29,20 @@ class LoginController extends StateNotifier<LoginState> {
         state.role.isEmpty ? 'student' : state.role, // Default to student if role not selected
       );
       
-      state = state.copyWith(isLoading: false, isAuthenticated: success);
-      return success;
+      if (success) {
+        // Get the authenticated user data including role
+        final authState = _ref.read(authStateProvider);
+        final userData = authState.user;
+        
+        state = state.copyWith(isLoading: false, isAuthenticated: true, userData: userData);
+        return userData;
+      } else {
+        state = state.copyWith(isLoading: false, errorMessage: 'Invalid credentials');
+        return null;
+      }
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
-      return false;
+      return null;
     }
   }
 }
@@ -45,6 +54,7 @@ class LoginState {
   final bool isLoading;
   final bool isAuthenticated;
   final String? errorMessage;
+  final Map<String, dynamic>? userData;
 
   LoginState({
     required this.username,
@@ -53,6 +63,7 @@ class LoginState {
     required this.isLoading,
     required this.isAuthenticated,
     this.errorMessage,
+    this.userData,
   });
 
   factory LoginState.initial() {
@@ -72,6 +83,7 @@ class LoginState {
     bool? isLoading,
     bool? isAuthenticated,
     String? errorMessage,
+    Map<String, dynamic>? userData,
   }) {
     return LoginState(
       username: username ?? this.username,
@@ -80,6 +92,7 @@ class LoginState {
       isLoading: isLoading ?? this.isLoading,
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       errorMessage: errorMessage,
+      userData: userData ?? this.userData,
     );
   }
 }

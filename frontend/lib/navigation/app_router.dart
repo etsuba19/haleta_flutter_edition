@@ -10,6 +10,7 @@ import '../presentation/choice/choice_page.dart';
 import '../presentation/forgot_password/forgot_password_page.dart';
 import '../presentation/answer_security/answer_security_page.dart';
 import '../presentation/reset_password/reset_password_page.dart';
+import '../presentation/admin_home/admin_home_page.dart';
 
 import '../presentation/category/category_page.dart';
 import '../presentation/profile/profile_page.dart';
@@ -64,6 +65,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/choice',
       builder: (context, state) => ChoiceScreen(),
+    ),
+    GoRoute(
+      path: '/admin-home',
+      builder: (context, state) => AdminHomePage(),
     ),
     GoRoute(
       path: '/study',
