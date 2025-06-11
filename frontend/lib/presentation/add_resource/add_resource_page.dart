@@ -3,7 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'add_resource_controller.dart';
 
 class AddResourcePage extends ConsumerWidget {
-  const AddResourcePage({super.key});
+  final bool isEdit;
+  final String resourceId;
+  
+  const AddResourcePage({
+    super.key,
+    this.isEdit = false,
+    this.resourceId = '',
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

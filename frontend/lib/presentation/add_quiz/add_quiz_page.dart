@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'add_quiz_controller.dart';
 
 class AddQuizPage extends ConsumerWidget {
-  const AddQuizPage({super.key});
+  final String difficulty;
+  final bool isEdit;
+  final String quizId;
+
+  const AddQuizPage({
+    super.key,
+    this.difficulty = '',
+    this.isEdit = false,
+    this.quizId = '',
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizState = ref.watch(addQuizControllerProvider);
     final controller = ref.read(addQuizControllerProvider.notifier);
 
+    // Initialize with difficulty if provided
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (difficulty.isNotEmpty && !isEdit) {
+        controller.setDifficulty(difficulty);
+      }
+      if (isEdit && quizId.isNotEmpty) {
+        controller.loadQuizForEdit(quizId);
+      }
+    });
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bg.png'),
+            image: AssetImage('assets/images/bgimg.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -25,21 +45,36 @@ class AddQuizPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 20),
-                const Center(
+                Center(
                   child: Text(
-                    'Question Bank',
-                    style: TextStyle(
+                    isEdit ? 'Edit Quiz' : 'Add New Quiz',
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFF0DDE0),
+                      color: Colors.white,
                     ),
                   ),
                 ),
+                
+                if (difficulty.isNotEmpty || quizState.difficulty.isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Text(
+                      'Difficulty: ${difficulty.isNotEmpty ? difficulty : quizState.difficulty}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+                
                 const SizedBox(height: 40),
 
                 // Question TextField
                 TextFormField(
-                  key: ValueKey(quizState.question), // Important to update UI on clear
+                  key: ValueKey(quizState.question),
                   initialValue: quizState.question,
                   onChanged: controller.setQuestion,
                   textAlign: TextAlign.center,
@@ -65,13 +100,54 @@ class AddQuizPage extends ConsumerWidget {
                 // Option TextFields
                 for (int i = 0; i < 4; i++) ...[
                   _QuizTextField(
-                    key: ValueKey('${quizState.options[i]}-$i'), // Force rebuild
-                    hint: '+ Option',
+                    key: ValueKey('${quizState.options[i]}-$i'),
+                    hint: '+ Option ${i + 1}',
                     initialValue: quizState.options[i],
                     onChanged: (val) => controller.setOption(i, val),
                   ),
                   const SizedBox(height: 20),
                 ],
+
+                // Correct Answer Selection
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF0DDE0),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Select Correct Answer:',
+                        style: TextStyle(
+                          color: Color(0xFF460C16),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        children: List.generate(4, (index) {
+                          return ChoiceChip(
+                            label: Text('Option ${index + 1}'),
+                            selected: quizState.correctAnswerIndex == index,
+                            onSelected: (selected) {
+                              if (selected) {
+                                controller.setCorrectAnswer(index);
+                              }
+                            },
+                            selectedColor: const Color(0xFF460C16),
+                            labelStyle: TextStyle(
+                              color: quizState.correctAnswerIndex == index 
+                                ? Colors.white 
+                                : const Color(0xFF460C16),
+                            ),
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
 
                 const Spacer(),
 
@@ -82,7 +158,7 @@ class AddQuizPage extends ConsumerWidget {
                     children: [
                       ElevatedButton(
                         style: _roundedButtonStyle(),
-                        onPressed: () => controller.clear(),
+                        onPressed: () => context.go('/quiz-list'),
                         child: const SizedBox(
                           width: 70,
                           child: Center(
@@ -92,7 +168,23 @@ class AddQuizPage extends ConsumerWidget {
                       ),
                       ElevatedButton(
                         style: _roundedButtonStyle(),
-                        onPressed: () => controller.save(),
+                        onPressed: () async {
+                          final success = await controller.save(
+                            difficulty: difficulty.isNotEmpty ? difficulty : quizState.difficulty,
+                            isEdit: isEdit,
+                            quizId: quizId,
+                          );
+                          
+                          if (success && context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(isEdit ? 'Quiz updated successfully!' : 'Quiz saved successfully!'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                            context.go('/quiz-list');
+                          }
+                        },
                         child: const SizedBox(
                           width: 70,
                           child: Center(

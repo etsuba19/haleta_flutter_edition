@@ -11,6 +11,12 @@ import '../presentation/forgot_password/forgot_password_page.dart';
 import '../presentation/answer_security/answer_security_page.dart';
 import '../presentation/reset_password/reset_password_page.dart';
 import '../presentation/admin_home/admin_home_page.dart';
+import '../presentation/user_list/user_list_page.dart';
+import '../presentation/quiz_list/quiz_list_page.dart';
+import '../presentation/resources/resources_page.dart';
+import '../presentation/select_difficulty/select_difficulty_page.dart';
+import '../presentation/add_quiz/add_quiz_page.dart';
+import '../presentation/add_resource/add_resource_page.dart';
 
 import '../presentation/category/category_page.dart';
 import '../presentation/profile/profile_page.dart';
@@ -69,6 +75,50 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/admin-home',
       builder: (context, state) => AdminHomePage(),
+    ),
+    GoRoute(
+      path: '/user-list',
+      builder: (context, state) => UserListPage(),
+    ),
+    GoRoute(
+      path: '/quiz-list',
+      builder: (context, state) => QuizListPage(),
+    ),
+    GoRoute(
+      path: '/resources',
+      builder: (context, state) => ResourcesPage(),
+    ),
+    GoRoute(
+      path: '/select-difficulty',
+      builder: (context, state) => SelectDifficultyPage(),
+    ),
+    GoRoute(
+      path: '/add-quiz',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        final difficulty = args['difficulty'] as String? ?? '';
+        final isEdit = args['isEdit'] as bool? ?? false;
+        final quizId = args['quizId'] as String? ?? '';
+        
+        return AddQuizPage(
+          difficulty: difficulty,
+          isEdit: isEdit,
+          quizId: quizId,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/add-resource',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        final isEdit = args['isEdit'] as bool? ?? false;
+        final resourceId = args['resourceId'] as String? ?? '';
+        
+        return AddResourcePage(
+          isEdit: isEdit,
+          resourceId: resourceId,
+        );
+      },
     ),
     GoRoute(
       path: '/study',

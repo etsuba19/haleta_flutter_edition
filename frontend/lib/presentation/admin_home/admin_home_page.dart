@@ -8,6 +8,8 @@ class AdminHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(adminHomeControllerProvider.notifier);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -37,38 +39,22 @@ class AdminHomePage extends ConsumerWidget {
                   children: [
                     MenuButton(
                       text: 'User List',
-                      onTap: () {
-                        ref
-                            .read(adminHomeControllerProvider.notifier)
-                            .navigateToUserList(context);
-                      },
+                      onTap: () => controller.navigateToUserList(context),
                     ),
                     const SizedBox(height: 20),
                     MenuButton(
-                      text: 'Quizz List',
-                      onTap: () {
-                        ref
-                            .read(adminHomeControllerProvider.notifier)
-                            .navigateToQuizList(context);
-                      },
+                      text: 'Quiz List',
+                      onTap: () => controller.navigateToQuizList(context),
                     ),
                     const SizedBox(height: 20),
                     MenuButton(
                       text: 'Resource List',
-                      onTap: () {
-                        ref
-                            .read(adminHomeControllerProvider.notifier)
-                            .navigateToResourceList(context);
-                      },
+                      onTap: () => controller.navigateToResourceList(context),
                     ),
                     const SizedBox(height: 50),
                     MenuButton(
                       text: 'Logout',
-                      onTap: () {
-                        ref
-                            .read(adminHomeControllerProvider.notifier)
-                            .logout();
-                      },
+                      onTap: () => controller.logout(),
                       narrow: true,
                       short: true,
                     ),
