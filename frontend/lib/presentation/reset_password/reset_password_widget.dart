@@ -3,6 +3,81 @@ import '../../application/auth/usecases/reset_password.dart';
 import '../../infrastructure/auth/repositories/auth_repository_impl.dart';
 import 'reset_password_controller.dart';
 
+// Separate PasswordInputField widget
+class PasswordInputField extends StatefulWidget {
+  final TextEditingController controller;
+  final String labelText;
+  final String? hintText;
+  final String? Function(String?)? validator;
+
+  const PasswordInputField({
+    super.key,
+    required this.controller,
+    required this.labelText,
+    this.hintText,
+    this.validator,
+  });
+
+  @override
+  _PasswordInputFieldState createState() => _PasswordInputFieldState();
+}
+
+class _PasswordInputFieldState extends State<PasswordInputField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.controller,
+      obscureText: _obscureText,
+      validator: widget.validator,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.lock),
+        suffixIcon: IconButton(
+          icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ),
+        labelText: widget.labelText,
+        hintText: widget.hintText,
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+}
+
+// Separate ResetPasswordButton widget
+class ResetPasswordButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final bool isLoading;
+
+  const ResetPasswordButton({
+    super.key,
+    required this.onPressed,
+    required this.isLoading,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? CircularProgressIndicator(color: Colors.white)
+        : ElevatedButton(
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.red[900],
+            ),
+            child: Text("Reset Password"),
+          );
+  }
+}
+
 class ResetPasswordWidget extends StatefulWidget {
   final String username;
   final void Function() onSuccess;
@@ -22,8 +97,6 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   late final ResetPasswordController controller;
   bool _isLoading = false;
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
 
   @override
   void initState() {
@@ -75,57 +148,22 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         SizedBox(height: 40),
-        TextField(
+        PasswordInputField(
           controller: _passwordController,
-          obscureText: _obscurePassword,
-          decoration: InputDecoration(
-            prefixIcon: Icon(Icons.lock),
-            suffixIcon: IconButton(
-              icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-              onPressed: () {
-                setState(() {
-                  _obscurePassword = !_obscurePassword;
-                });
-              },
-            ),
-            hintText: "አዲስ የይለፍ ቃል ያስገቡ",
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          ),
+          labelText: "አዲስ የይለፍ ቃል",
+          hintText: "አዲስ የይለፍ ቃል ያስገቡ",
         ),
         SizedBox(height: 20),
-        TextField(
+        PasswordInputField(
           controller: _confirmPasswordController,
-          obscureText: _obscureConfirmPassword,
-          decoration: InputDecoration(
-            prefixIcon: Icon(Icons.lock),
-            suffixIcon: IconButton(
-              icon: Icon(_obscureConfirmPassword ? Icons.visibility : Icons.visibility_off),
-              onPressed: () {
-                setState(() {
-                  _obscureConfirmPassword = !_obscureConfirmPassword;
-                });
-              },
-            ),
-            hintText: "አዲስ የይለፍ ቃልዎን ያረጋግጡ",
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          ),
+          labelText: "የይለፍ ቃል ማረጋገጫ",
+          hintText: "አዲስ የይለፍ ቃልዎን ያረጋግጡ",
         ),
         SizedBox(height: 30),
-        _isLoading
-            ? CircularProgressIndicator(color: Colors.white)
-            : ElevatedButton(
-                onPressed: _handleSubmit,
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.red[900],
-                ),
-                child: Text("ቀጥል"),
-              ),
+        ResetPasswordButton(
+          onPressed: _handleSubmit,
+          isLoading: _isLoading,
+        ),
       ],
     );
   }
