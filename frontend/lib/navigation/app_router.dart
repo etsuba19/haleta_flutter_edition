@@ -14,7 +14,9 @@ import '../presentation/reset_password/reset_password_page.dart';
 import '../presentation/category/category_page.dart';
 import '../presentation/profile/profile_page.dart';
 import '../presentation/quiz/quiz_page.dart';
-import '../presentation/result/result_page.dart'; // <- make sure this is correct!
+import '../presentation/result/result_page.dart';
+import '../presentation/study/study_page.dart';
+import '../presentation/topic_detail/topic_detail_page.dart';
 
 typedef DrawerCallback = void Function(String);
 
@@ -64,17 +66,32 @@ final GoRouter router = GoRouter(
       builder: (context, state) => ChoiceScreen(),
     ),
     GoRoute(
+      path: '/study',
+      builder: (context, state) => StudyPage(),
+    ),
+    GoRoute(
+      path: '/topic-detail',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        return TopicDetailPage(
+          topicId: args['topicId'] as String? ?? '',
+          topicTitle: args['topicTitle'] as String? ?? '',
+          topicAmharicTitle: args['topicAmharicTitle'] as String? ?? '',
+        );
+      },
+    ),
+    GoRoute(
       path: '/category',
       builder: (context, state) {
         return CategoryPage(
           currentPage: 'ጥያቄ - ፈተና ክብደት',
-          onDifficultySelected: (String selectedCategory) {
+          onDifficultySelected: (String selectedDifficulty) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (context.mounted) {
                 context.go('/quiz', extra: {
+                  'difficulty': selectedDifficulty,
                   'viewModel': QuizViewModel(
-                    questionText:
-                    'እርሱ ብሎ ውእቱ ካለ እርሷ ብሎ ____',
+                    questionText: 'እርሱ ብሎ ውእቱ ካለ እርሷ ብሎ ____',
                     options: ['ውእቱ', 'ይቲ', 'አንቲ', 'ይእቲ'],
                     correctAnswer: 'ይእቲ',
                   ),
@@ -195,6 +212,14 @@ void _handleDrawerNavigation(BuildContext context, String item) {
       if (currentRoute != '/category') {
         Future.microtask(() {
           context.go('/category');
+        });
+      }
+      break;
+
+    case 'ንባብ': // Study
+      if (currentRoute != '/study') {
+        Future.microtask(() {
+          context.go('/study');
         });
       }
       break;

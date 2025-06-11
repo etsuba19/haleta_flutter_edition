@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../widgets/custom_button.dart';
-import 'choice_controller.dart';
 
 class ChoiceScreen extends ConsumerWidget {
   const ChoiceScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(choiceControllerProvider(context));
-
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -26,9 +24,20 @@ class ChoiceScreen extends ConsumerWidget {
           children: [
             Image.asset('assets/images/logoimg.jpg', height: 250),
             const SizedBox(height: 40),
-            CustomButton(text: 'ፈተና', onPressed: controller.onQuizPressed),
+            CustomButton(
+              text: 'ፈተና', 
+              onPressed: () => GoRouter.of(context).go('/category'),
+            ),
             const SizedBox(height: 20),
-            CustomButton(text: 'ጥናት', onPressed: controller.onResourcePressed),
+            CustomButton(
+              text: 'ጥናት', 
+              onPressed: () => GoRouter.of(context).go('/study'),
+            ),
+            const SizedBox(height: 20),
+            CustomButton(
+              text: 'መለያ', 
+              onPressed: () => GoRouter.of(context).go('/profile'),
+            ),
           ],
         ),
       ),

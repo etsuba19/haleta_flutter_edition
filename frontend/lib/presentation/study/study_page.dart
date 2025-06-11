@@ -251,21 +251,6 @@ class _StudyPageState extends ConsumerState<StudyPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: controller.onRetryPressed,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8B1538),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-                child: const Text(
-                  'እንደገና ሞክር',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ),
             ],
           ),
         ),
@@ -384,7 +369,7 @@ class _StudyPageState extends ConsumerState<StudyPage> {
           borderRadius: BorderRadius.circular(25),
           child: InkWell(
             borderRadius: BorderRadius.circular(25),
-            onTap: controller.onBackPressed,
+            onTap: () => controller.onBackPressed(context),
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               decoration: BoxDecoration(

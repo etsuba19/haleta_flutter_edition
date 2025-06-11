@@ -12,7 +12,6 @@ class TopicDetailController {
 
   void onBackPressed() {
     ref.read(topicDetailNotifierProvider.notifier).clearState();
-    print('Navigating back to study page');
   }
 
   void onRetryPressed(String topicId) {
@@ -20,7 +19,7 @@ class TopicDetailController {
   }
 
   void onMenuToggle() {
-    print('Menu toggled');
+    // Menu toggle functionality (if needed)
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../application/study/topic_detail_notifier.dart';
 import 'topic_detail_ctrl.dart';
 import 'topic_detail_widget.dart';
@@ -39,7 +40,7 @@ class _TopicDetailPageState extends ConsumerState<TopicDetailPage> {
   void _onBackPressed() {
     final controller = ref.read(topicDetailControllerProvider);
     controller.onBackPressed();
-    Navigator.of(context).pop();
+    GoRouter.of(context).go('/study');
   }
 
   void _onRetryPressed() {
