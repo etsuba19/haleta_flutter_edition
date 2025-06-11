@@ -1,33 +1,35 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:frontend/infrastructure/choice/repositories_impl/choice_repository_impl.dart';
 import 'package:frontend/infrastructure/choice/datasources/choice_remote_data_source.dart';
+import 'package:frontend/infrastructure/choice/repositories_impl/choice_repository_impl.dart';
 
-// Mock class with mocktail
+// Mock ChoiceRemoteDataSource
 class MockChoiceRemoteDataSource extends Mock implements ChoiceRemoteDataSource {}
 
 void main() {
-  late MockChoiceRemoteDataSource mockDataSource;
+  late MockChoiceRemoteDataSource mockRemoteDataSource;
   late ChoiceRepositoryImpl repository;
 
   setUp(() {
-    mockDataSource = MockChoiceRemoteDataSource();
-    repository = ChoiceRepositoryImpl(mockDataSource);
+    mockRemoteDataSource = MockChoiceRemoteDataSource();
+    repository = ChoiceRepositoryImpl(mockRemoteDataSource);
   });
 
-  test('goToQuiz should call navigateToQuiz on data source', () async {
-    when(() => mockDataSource.navigateToQuiz()).thenAnswer((_) async {});
+  group('ChoiceRepositoryImpl', () {
+    test('goToQuiz calls remoteDataSource.navigateToQuiz', () async {
+      when(() => mockRemoteDataSource.navigateToQuiz()).thenAnswer((_) async {});
 
-    await repository.goToQuiz();
+      await repository.goToQuiz();
 
-    verify(() => mockDataSource.navigateToQuiz()).called(1);
-  });
+      verify(() => mockRemoteDataSource.navigateToQuiz()).called(1);
+    });
 
-  test('goToResources should call navigateToResources on data source', () async {
-    when(() => mockDataSource.navigateToResources()).thenAnswer((_) async {});
+    test('goToResources calls remoteDataSource.navigateToResources', () async {
+      when(() => mockRemoteDataSource.navigateToResources()).thenAnswer((_) async {});
 
-    await repository.goToResources();
+      await repository.goToResources();
 
-    verify(() => mockDataSource.navigateToResources()).called(1);
+      verify(() => mockRemoteDataSource.navigateToResources()).called(1);
+    });
   });
 }
