@@ -14,15 +14,15 @@ Group Members
 Features
 
 User Management (CRUD): Users can sign up, log in, and update their profile. Admins can create, read, update, and delete users. Users can retake quizzes to improve their scores.
+
 Quiz Management (CRUD): Admins can create, edit, and delete quiz questions. The system supports multiple-choice question types.
-Timed Quizzes & Auto-Submission: Each quiz includes a countdown timer. When time runs out, answers are automatically submitted.
+
 
 Testing
 
 The app includes three types of tests:
 
 test/
-
 ├── unit/ 
 
 ├── widget/ 
