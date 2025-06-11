@@ -21,8 +21,11 @@ Testing
 
 The app includes three types of tests:
 test/
+
 ├── unit/ 
+
 ├── widget/ 
+
 └── integration/ 
 
 
