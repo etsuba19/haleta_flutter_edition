@@ -1,71 +1,64 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:your_app_path/application/previous_exam/previous_exam_notifier.dart';
-import 'package:your_app_path/application/previous_exam/view_previous_exam.dart';
-import 'package:your_app_path/application/previous_exam/continue_previous_exam.dart';
-import 'package:your_app_path/domain/previous_exam/previous_exam.dart';
+import 'package:mocktail/mocktail.dart';
+
+import 'package:frontend/application/previous_exam/previous_exam_notifier.dart';
+import 'package:frontend/presentation/previous_exam/previous_exam_controller.dart';
 
 // Mock classes
-class MockViewPreviousExam extends Mock implements ViewPreviousExam {}
-class MockContinuePreviousExam extends Mock implements ContinuePreviousExam {}
+class MockPreviousExamController extends Mock implements PreviousExamController {}
 
 void main() {
   late PreviousExamNotifier notifier;
-  late MockViewPreviousExam mockView;
-  late MockContinuePreviousExam mockContinue;
+  late MockPreviousExamController mockController;
 
   setUp(() {
-    mockView = MockViewPreviousExam();
-    mockContinue = MockContinuePreviousExam();
-    notifier = PreviousExamNotifier(
-      view: mockView,
-      continueUseCase: mockContinue,
-    );
+    mockController = MockPreviousExamController();
+    notifier = PreviousExamNotifier(controller: mockController);
+    
+    // Setup stubs for async methods
+    when(() => mockController.viewExam(any())).thenAnswer((_) => Future<void>.value());
+    when(() => mockController.continueExam(any())).thenAnswer((_) => Future<void>.value());
   });
 
-  test('onFirstQuizIdChange updates state and notifies listeners', () {
-    bool listenerCalled = false;
-    notifier.addListener(() {
-      listenerCalled = true;
+  group('PreviousExamNotifier', () {
+    test('should update firstQuizId when onFirstQuizIdChange is called', () {
+      // Act
+      notifier.onFirstQuizIdChange('test-id-1');
+      
+      // Assert
+      expect(notifier.state.firstQuizId, equals('test-id-1'));
     });
 
-    notifier.onFirstQuizIdChange('abc123');
-
-    expect(notifier.uiState.firstQuizId, 'abc123');
-    expect(listenerCalled, true);
-  });
-
-  test('onSecondQuizIdChange updates state and notifies listeners', () {
-    bool listenerCalled = false;
-    notifier.addListener(() {
-      listenerCalled = true;
+    test('should update secondQuizId when onSecondQuizIdChange is called', () {
+      // Act
+      notifier.onSecondQuizIdChange('test-id-2');
+      
+      // Assert
+      expect(notifier.state.secondQuizId, equals('test-id-2'));
     });
 
-    notifier.onSecondQuizIdChange('xyz789');
+    test('should call viewExam when onViewClicked is called', () {
+      // Arrange
+      notifier.onFirstQuizIdChange('test-id-1');
+      
+      // Act
+      notifier.onViewClicked();
+      
+      // Assert
+      verify(() => mockController.viewExam('test-id-1')).called(1);
+    });
 
-    expect(notifier.uiState.secondQuizId, 'xyz789');
-    expect(listenerCalled, true);
-  });
-
-  test('onViewClicked calls ViewPreviousExam with correct ID', () {
-    notifier.onFirstQuizIdChange('test123');
-
-    final expectedExam = PreviousExam(id: 'test123');
-    when(mockView.call(expectedExam)).thenReturn(null);
-
-    notifier.onViewClicked();
-
-    verify(mockView.call(expectedExam)).called(1);
-  });
-
-  test('onContinueClicked calls ContinuePreviousExam with correct ID', () {
-    notifier.onSecondQuizIdChange('test456');
-
-    final expectedExam = PreviousExam(id: 'test456');
-    when(mockContinue.call(expectedExam)).thenAnswer((_) async => Future.value());
-
-    notifier.onContinueClicked();
-
-    verify(mockContinue.call(expectedExam)).called(1);
+    test('should call continueExam when onContinueClicked is called', () {
+      // Arrange
+      notifier.onSecondQuizIdChange('test-id-2');
+      
+      // Act
+      notifier.onContinueClicked();
+      
+      // Assert
+      verify(() => mockController.continueExam('test-id-2')).called(1);
+    });
   });
 }
+
+

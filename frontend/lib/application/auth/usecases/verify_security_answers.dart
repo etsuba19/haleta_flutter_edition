@@ -5,15 +5,13 @@ class VerifySecurityAnswersUseCase {
 
   VerifySecurityAnswersUseCase(this.repository);
 
-  Future<bool> execute({
+  Future<bool> call({
     required String username,
-    required String answer1,
-    required String answer2,
-  }) {
-    return repository.verifySecurityAnswers(
+    required Map<String, String> providedAnswers,
+  }) async {
+    return await repository.verifySecurityAnswers(
       username: username,
-      answer1: answer1,
-      answer2: answer2,
+      providedAnswers: providedAnswers,
     );
   }
 }

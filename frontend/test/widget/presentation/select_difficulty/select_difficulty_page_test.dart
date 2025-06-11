@@ -45,3 +45,4 @@ void main() {
     expect(selectedDifficulty, 'Medium'); // Remains unchanged
   });
 }
+

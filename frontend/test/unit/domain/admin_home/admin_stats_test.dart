@@ -9,3 +9,4 @@ void main() {
     expect(stats.totalResources, 3);
   });
 }
+

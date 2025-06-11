@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:your_app_path/domain/previous_exam/previous_exam.dart';
+import 'package:frontend/domain/previous_exam/previous_exam.dart';
 
 void main() {
   test('PreviousExam initializes with the correct id', () {
@@ -8,3 +8,4 @@ void main() {
     expect(exam.id, '12345');
   });
 }
+

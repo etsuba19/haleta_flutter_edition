@@ -5,7 +5,7 @@ class CheckUsernameExistsUseCase {
 
   CheckUsernameExistsUseCase(this.repository);
 
-  Future<bool> call(String username) {
-    return repository.doesUserExist(username);
+  Future<bool> call(String username) async {
+    return await repository.doesUserExist(username);
   }
 }

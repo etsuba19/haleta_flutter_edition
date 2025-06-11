@@ -1,4 +1,4 @@
-import 'package:untitled/domain/previous_exam/previous_exam.dart';
+import '../../domain/previous_exam/previous_exam.dart';
 
 abstract class PreviousExamRepository {
   Future<void> viewExam(PreviousExam exam);

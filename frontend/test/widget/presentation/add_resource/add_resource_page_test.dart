@@ -32,3 +32,4 @@ void main() {
     expect(find.text('Intro to AI'), findsOneWidget);
   });
 }
+

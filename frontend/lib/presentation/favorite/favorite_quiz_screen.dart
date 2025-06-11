@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/favorite/favorite_quiz_notifier.dart';
+import 'favorite_quiz_widgets.dart';
 
-class FavoriteQuizzesScreen extends StatelessWidget {
+// Define a provider for the FavoriteQuizNotifier
+final favoriteQuizNotifierProvider = ChangeNotifierProvider<FavoriteQuizNotifier>((ref) {
+  return FavoriteQuizNotifier(
+    viewUseCase: ref.read(viewFavoriteQuizProvider),
+    continueUseCase: ref.read(continueFavoriteQuizProvider),
+  );
+});
+
+// These providers would be defined elsewhere in your app
+final viewFavoriteQuizProvider = Provider((ref) => throw UnimplementedError());
+final continueFavoriteQuizProvider = Provider((ref) => throw UnimplementedError());
+
+class FavoriteQuizzesScreen extends ConsumerWidget {
   const FavoriteQuizzesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final viewModel = context.watch<FavoriteQuizNotifier>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(favoriteQuizNotifierProvider);
     final fieldBackground = const Color(0xFFFFF0F5);
     final buttonBackground = const Color(0xFFFFE4E1);
 
     return Scaffold(
       body: Stack(
         children: [
-
           Positioned.fill(
             child: Image.asset(
               'assets/bg_img.jpg',

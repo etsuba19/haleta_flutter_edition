@@ -10,3 +10,4 @@ class CreateQuiz {
     return repository.createQuiz(quiz);
   }
 }
+

@@ -5,8 +5,11 @@ import '../presentation/auth/login_page.dart';
 import '../presentation/home/home_page.dart';
 import '../presentation/quiz/quiz_controller.dart';
 import '../presentation/security_question/security_question_page.dart';
-import '../presentation/signup/signup_screen.dart';
+import '../presentation/signup/signup_page.dart';
 import '../presentation/choice/choice_page.dart';
+import '../presentation/forgot_password/forgot_password_page.dart';
+import '../presentation/answer_security/answer_security_page.dart';
+import '../presentation/reset_password/reset_password_page.dart';
 
 import '../presentation/category/category_page.dart';
 import '../presentation/profile/profile_page.dart';
@@ -16,7 +19,7 @@ import '../presentation/result/result_page.dart'; // <- make sure this is correc
 typedef DrawerCallback = void Function(String);
 
 final GoRouter router = GoRouter(
-  initialLocation: '/category',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -33,6 +36,28 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/security-question',
       builder: (context, state) => SecurityQuestionPage(),
+    ),
+    GoRoute(
+      path: '/forgot-password',
+      builder: (context, state) => const ForgotPasswordPage(),
+    ),
+    GoRoute(
+      path: '/answer-security',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        final username = args['username'] as String? ?? '';
+        
+        return SecurityQuestionsPage(username: username);
+      },
+    ),
+    GoRoute(
+      path: '/reset-password',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        final username = args['username'] as String? ?? '';
+        
+        return ResetPasswordPage(username: username);
+      },
     ),
     GoRoute(
       path: '/choice',

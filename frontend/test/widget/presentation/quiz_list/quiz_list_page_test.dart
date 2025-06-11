@@ -68,3 +68,4 @@ class QuizListControllerTest extends QuizListController {
     state = initialQuizzes;
   }
 }
+

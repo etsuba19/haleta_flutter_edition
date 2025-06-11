@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:your_app_path/application/favorite/continue_favorite_quiz.dart';
-import 'package:your_app_path/domain/favorite/favorite_quiz.dart';
-import 'package:your_app_path/domain/favorite/favorite_quiz_repository.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:frontend/application/favorite/continue_favorite_quiz.dart';
+import 'package:frontend/domain/favorite/favorite_quiz.dart';
+import 'package:frontend/domain/favorite/favorite_quiz_repository.dart';
 
-// Mock class using mockito
+// Mock class using mocktail
 class MockFavoriteQuizRepository extends Mock implements FavoriteQuizRepository {}
 
 void main() {
@@ -18,15 +18,18 @@ void main() {
     });
 
     test('calls repository.continueQuiz with the correct quiz', () async {
-      final quiz = FavoriteQuiz(id: '1', title: 'Math Quiz');
+      final quiz = FavoriteQuiz(id: '1', title: 'Math Quiz', description: 'Test description');
 
-      // Stub the method to return a future
-      when(mockRepository.continueQuiz(quiz)).thenAnswer((_) async => Future.value());
+      // Stub the method using mocktail syntax
+      when(() => mockRepository.continueQuiz(any())).thenAnswer((_) async => Future.value());
 
       await useCase.call(quiz);
 
       // Verify the interaction
-      verify(mockRepository.continueQuiz(quiz)).called(1);
+      verify(() => mockRepository.continueQuiz(any())).called(1);
     });
   });
 }
+
+
+

@@ -4,7 +4,7 @@ import '../../infrastructure/auth/repositories/auth_repository_impl.dart';
 import 'forgot_password_controller.dart';
 
 class ForgotPasswordWidget extends StatefulWidget {
-  final void Function() onSuccess;
+  final void Function(String username) onSuccess;
 
   const ForgotPasswordWidget({Key? key, required this.onSuccess}) : super(key: key);
 
@@ -39,7 +39,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
     setState(() => _isLoading = false);
 
     if (exists) {
-      widget.onSuccess();
+      widget.onSuccess(username);
     } else {
       _showMessage('Username does not exist.');
     }

@@ -7,6 +7,8 @@ class GetFavoriteExam {
   GetFavoriteExam(this.repository);
 
   Future<List<FavoriteQuiz>> call() async {
+    // Since repository.getFavorites() is not async, we don't need to await it
+    // but the method still returns a Future for consistency with other use cases
     return repository.getFavorites();
   }
 }

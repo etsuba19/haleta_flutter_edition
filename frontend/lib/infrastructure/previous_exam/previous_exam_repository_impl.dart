@@ -1,8 +1,6 @@
-import 'package:untitled/infrastructure/previous_exam/local_previous_exam_repository.dart';
-
 import '../../domain/previous_exam/previous_exam.dart';
 import '../../domain/previous_exam/previous_exam_repository.dart';
-import '../../infrastructure/previous_exam/local_previous_exam_repository.dart';
+import 'local_previous_exam_repository.dart';
 
 class PreviousExamRepositoryImpl implements PreviousExamRepository {
   final LocalPreviousExamDataSource localDataSource;

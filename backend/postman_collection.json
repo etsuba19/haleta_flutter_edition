@@ -1,0 +1,886 @@
+{
+	"info": {
+		"_postman_id": "e8c1b2c3-d4e5-6f7g-8h9i-0j1k2l3m4n5o",
+		"name": "Haleta Backend API",
+		"description": "Collection for testing Haleta Backend API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"description": "Authentication-related endpoints",
+			"item": [
+				{
+					"name": "Register User - Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newstudent\",\n    \"password\": \"password123\",\n    \"role\": \"student\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new student user"
+					},
+					"response": []
+				},
+				{
+					"name": "Register User - Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newadmin\",\n    \"password\": \"password123\",\n    \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new admin user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"studentToken\", jsonData.token);",
+									"pm.environment.set(\"studentId\", jsonData.user.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"student\",\n    \"password\": \"student123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login as a student user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"adminToken\", jsonData.token);",
+									"pm.environment.set(\"adminId\", jsonData.user.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login as an admin user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User - Student",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Get current user info for student"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User - Admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Get current user info for admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Username Exists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/username-exists/student",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"username-exists",
+								"student"
+							]
+						},
+						"description": "Check if username exists"
+					},
+					"response": []
+				},
+				{
+					"name": "Set Security Questions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"student\",\n    \"securityQuestions\": {\n        \"question1\": {\n            \"question\": \"ምሕላ: የልጅነት ቋሊ ሰፈርዎ ማን ነበር?\",\n            \"answer\": \"addis ababa\"\n        },\n        \"question2\": {\n            \"question\": \"ምሕላ: የመጀመሪያ ትምህርት ቤት ማን ነበር?\",\n            \"answer\": \"bole elementary\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/security-questions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"security-questions"
+							]
+						},
+						"description": "Set security questions for a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Security Questions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/security-questions/student",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"security-questions",
+								"student"
+							]
+						},
+						"description": "Get security questions for a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Security Answers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"student\",\n    \"providedAnswers\": {\n        \"ምሕላ: የልጅነት ቋሊ ሰፈርዎ ማን ነበር?\": \"bahir dar\",\n        \"ምሕላ: የመጀመሪያ ትምህርት ቤት ማን ነበር?\": \"bahir dar elementary\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/verify-security-answers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"verify-security-answers"
+							]
+						},
+						"description": "Verify security answers for password reset"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"student\",\n    \"newPassword\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/reset-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password"
+							]
+						},
+						"description": "Reset user password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quizzes",
+			"description": "Quiz-related endpoints",
+			"item": [
+				{
+					"name": "Get All Quizzes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz"
+							]
+						},
+						"description": "Get all quizzes"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz/{{quizId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"{{quizId}}"
+							]
+						},
+						"description": "Get a quiz by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"categories"
+							]
+						},
+						"description": "Get all quiz categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quiz - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"quizId\", jsonData.quiz._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test Quiz\",\n    \"description\": \"A test quiz created via Postman\",\n    \"difficulty\": \"medium\",\n    \"category\": \"Test Category\",\n    \"questions\": [\n        {\n            \"questionText\": \"What is 2+2?\",\n            \"options\": [\"3\", \"4\", \"5\", \"6\"],\n            \"correctAnswer\": \"4\"\n        },\n        {\n            \"questionText\": \"What is the capital of Ethiopia?\",\n            \"options\": [\"Addis Ababa\", \"Bahir Dar\", \"Hawassa\", \"Mekelle\"],\n            \"correctAnswer\": \"Addis Ababa\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz"
+							]
+						},
+						"description": "Create a new quiz as admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quiz - Student (Should Fail)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Student Quiz\",\n    \"description\": \"A quiz created by a student\",\n    \"difficulty\": \"easy\",\n    \"category\": \"Student Category\",\n    \"questions\": [\n        {\n            \"questionText\": \"Is this allowed?\",\n            \"options\": [\"Yes\", \"No\"],\n            \"correctAnswer\": \"No\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz"
+							]
+						},
+						"description": "Attempt to create a quiz as student (should fail)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quiz - Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Test Quiz\",\n    \"description\": \"An updated test quiz\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz/{{quizId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"{{quizId}}"
+							]
+						},
+						"description": "Update a quiz as admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quiz - Student (Should Fail)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Student Updated Quiz\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz/{{quizId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"{{quizId}}"
+							]
+						},
+						"description": "Attempt to update a quiz as student (should fail)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Quiz - Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/quiz/{{quizId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"{{quizId}}"
+							]
+						},
+						"description": "Delete a quiz as admin"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resources",
+			"description": "Resource-related endpoints",
+			"item": [
+				{
+					"name": "Get All Resources",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/resources",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources"
+							]
+						},
+						"description": "Get all resources"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Resource by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/resources/{{resourceId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources",
+								"{{resourceId}}"
+							]
+						},
+						"description": "Get a resource by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Resource Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/resources/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources",
+								"categories"
+							]
+						},
+						"description": "Get all resource categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Resource - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"resourceId\", jsonData.resource._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test Resource\",\n    \"description\": \"A test resource created via Postman\",\n    \"url\": \"https://example.com/test-resource\",\n    \"category\": \"Test Category\",\n    \"type\": \"document\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/resources",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources"
+							]
+						},
+						"description": "Create a new resource as admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Resource - Student (Should Fail)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Student Resource\",\n    \"description\": \"A resource created by a student\",\n    \"url\": \"https://example.com/student-resource\",\n    \"category\": \"Student Category\",\n    \"type\": \"link\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/resources",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources"
+							]
+						},
+						"description": "Attempt to create a resource as student (should fail)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Resource - Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Test Resource\",\n    \"description\": \"An updated test resource\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/resources/{{resourceId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources",
+								"{{resourceId}}"
+							]
+						},
+						"description": "Update a resource as admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Resource - Student (Should Fail)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Student Updated Resource\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/resources/{{resourceId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources",
+								"{{resourceId}}"
+							]
+						},
+						"description": "Attempt to update a resource as student (should fail)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Resource - Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/resources/{{resourceId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"resources",
+								"{{resourceId}}"
+							]
+						},
+						"description": "Delete a resource as admin"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Server Status",
+			"description": "Basic server status endpoint",
+			"item": [
+				{
+					"name": "Root Endpoint",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Check if server is running"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "studentToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "quizId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "resourceId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "adminId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "studentId",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 

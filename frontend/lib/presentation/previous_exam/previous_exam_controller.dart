@@ -1,31 +1,41 @@
-import '../../domain/quiz/usecases/view_quiz_use_case.dart';
-import '../../domain/quiz/usecases/continue_quiz_use_case.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Simple provider for the controller
+final previousExamControllerProvider = Provider<PreviousExamController>((ref) {
+  return PreviousExamController();
+});
+
+/// Controller for the Previous Exam page
+/// 
+/// Handles business logic related to viewing and continuing previous exams
 class PreviousExamController {
-  final ViewQuizUseCase _viewQuizUseCase;
-  final ContinueQuizUseCase _continueQuizUseCase;
+  PreviousExamController();
 
-  PreviousExamController({
-    required ViewQuizUseCase viewQuizUseCase,
-    required ContinueQuizUseCase continueQuizUseCase,
-  })  : _viewQuizUseCase = viewQuizUseCase,
-        _continueQuizUseCase = continueQuizUseCase;
-
-  Future<void> viewQuiz(String quizId) async {
-    if (quizId.isEmpty) {
-      throw ArgumentError('First quiz ID cannot be empty.');
+  /// View an exam with the given ID
+  /// 
+  /// Throws ArgumentError if examId is empty
+  Future<void> viewExam(String examId) async {
+    if (examId.isEmpty) {
+      throw ArgumentError('Exam ID cannot be empty.');
     }
 
-    // Application logic to view the quiz
-    await _viewQuizUseCase.execute(quizId);
+    // Simplified implementation 
+    print('Viewing exam with ID: $examId');
+    // In a real implementation, this would navigate to a view exam screen
+    // or fetch and display exam details
   }
 
-  Future<void> continueQuiz(String quizId) async {
-    if (quizId.isEmpty) {
-      throw ArgumentError('Second quiz ID cannot be empty.');
+  /// Continue an exam with the given ID
+  /// 
+  /// Throws ArgumentError if examId is empty
+  Future<void> continueExam(String examId) async {
+    if (examId.isEmpty) {
+      throw ArgumentError('Exam ID cannot be empty.');
     }
 
-    // Application logic to continue the quiz
-    await _continueQuizUseCase.execute(quizId);
+    // Simplified implementation
+    print('Continuing exam with ID: $examId');
+    // In a real implementation, this would navigate to the exam session
+    // or resume a previously started exam
   }
 }

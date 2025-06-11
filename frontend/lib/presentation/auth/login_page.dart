@@ -11,6 +11,33 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vm = ref.read(loginControllerProvider.notifier);
+    final state = ref.watch(loginControllerProvider);
+    
+    // Check if we have a message in the router state
+    final routerState = GoRouterState.of(context);
+    final Map<String, dynamic>? extra = routerState.extra as Map<String, dynamic>?;
+    final String? message = extra?['message'] as String?;
+    
+    // Show message if provided
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (message != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message))
+        );
+      }
+      
+      // Show error message if login failed
+      if (state.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(state.errorMessage!))
+        );
+      }
+      
+      // Navigate to home if authenticated
+      if (state.isAuthenticated) {
+        context.go('/choice');
+      }
+    });
 
     return Scaffold(
       body: Container(
@@ -38,17 +65,22 @@ class LoginScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RoleRadio(value: 'student', groupValue: vm.role, onChanged: vm.setRole),
-                  RoleRadio(value: 'teacher', groupValue: vm.role, onChanged: vm.setRole),
+                  RoleRadio(value: 'student', groupValue: state.role, onChanged: vm.setRole),
+                  RoleRadio(value: 'admin', groupValue: state.role, onChanged: vm.setRole),
                 ],
               ),
               const SizedBox(height: 24),
-              CustomButton(
-                text: 'ግባ',
-                onPressed: () => GoRouter.of(context).go('/choice'),
-              ),
+              state.isLoading 
+                ? const CircularProgressIndicator(color: Colors.white)
+                : CustomButton(
+                    text: 'ግባ',
+                    onPressed: () => vm.login(),
+                  ),
               const SizedBox(height: 12),
-              CustomButton(text: 'የሚስጥር ቁጥር ከረሱ', onPressed: () {}),
+              CustomButton(
+                text: 'የሚስጥር ቁጥር ከረሱ', 
+                onPressed: () => GoRouter.of(context).go('/forgot-password'),
+              ),
               const SizedBox(height: 24),
               const Text('አካውንት የሎትም?', style: TextStyle(color: Color(0xFFF0DDE0))),
               const SizedBox(height: 8),

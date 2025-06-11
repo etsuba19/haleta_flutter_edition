@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/previous_exam/previous_exam.dart';
+import '../../presentation/previous_exam/previous_exam_controller.dart';
 import 'view_previous_exam.dart';
 import 'continue_previous_exam.dart';
 
@@ -17,34 +18,32 @@ class PreviousExamState {
   }
 }
 
-class PreviousExamNotifier extends ChangeNotifier {
-  PreviousExamState _uiState = PreviousExamState();
-  final ViewPreviousExam _view;
-  final ContinuePreviousExam _continue;
+final previousExamNotifierProvider = StateNotifierProvider<PreviousExamNotifier, PreviousExamState>((ref) {
+  final controller = ref.watch(previousExamControllerProvider);
+  return PreviousExamNotifier(controller: controller);
+});
+
+class PreviousExamNotifier extends StateNotifier<PreviousExamState> {
+  final PreviousExamController _controller;
 
   PreviousExamNotifier({
-    required ViewPreviousExam view,
-    required ContinuePreviousExam continueUseCase,
-  })  : _view = view,
-        _continue = continueUseCase;
-
-  PreviousExamState get uiState => _uiState;
+    required PreviousExamController controller,
+  })  : _controller = controller,
+        super(PreviousExamState());
 
   void onFirstQuizIdChange(String id) {
-    _uiState = _uiState.copyWith(firstQuizId: id);
-    notifyListeners();
+    state = state.copyWith(firstQuizId: id);
   }
 
   void onSecondQuizIdChange(String id) {
-    _uiState = _uiState.copyWith(secondQuizId: id);
-    notifyListeners();
+    state = state.copyWith(secondQuizId: id);
   }
 
   void onViewClicked() {
-    _view.call(PreviousExam(id: _uiState.firstQuizId));
+    _controller.viewExam(state.firstQuizId);
   }
 
   void onContinueClicked() {
-    _continue.call(PreviousExam(id: _uiState.secondQuizId));
+    _controller.continueExam(state.secondQuizId);
   }
 }

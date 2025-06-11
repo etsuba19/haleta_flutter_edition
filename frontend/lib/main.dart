@@ -1,33 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend/presentation/admin_home/admin_home_page.dart';
-import 'presentation/resources/resources_controller.dart';
-import 'domain/resources/entities/resource.dart';
+import 'navigation/app_router.dart';
+import 'infrastructure/auth/auth_provider.dart';
+import 'infrastructure/resources/resource_provider.dart';
+import 'infrastructure/quiz_list/quiz_provider.dart';
 
-void main() {
+void main() async {
+  // Ensure Flutter is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Create a container to initialize services before app starts
+  final container = ProviderContainer();
+  
+  // Initialize authentication from storage
+  await container.read(authControllerProvider).initAuth();
+
   runApp(
     ProviderScope(
-      overrides: [
-        getResourcesProvider.overrideWithValue(() async => List.generate(
-          7,
-              (i) => Resource(
-            id: '${i + 1}',
-            title: 'ResourceID',
-            description: 'Resource ${i + 1}',
-            url: 'https://example.com/${i + 1}',
-          ),
-        )),
-        removeResourceProvider.overrideWithValue((String id) async {}),
-      ],
+      parent: container,
       child: const MyApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
+  
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(home: AdminHomePage());
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Listen for auth state changes
+    final authState = ref.watch(authStateProvider);
+    
+    return MaterialApp.router(
+      title: 'Haleta App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+        ),
+      ),
+      // Use the router defined in app_router.dart
+      routerConfig: router,
+    );
   }
 }

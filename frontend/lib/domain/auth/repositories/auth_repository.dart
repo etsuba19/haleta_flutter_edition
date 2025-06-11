@@ -11,10 +11,16 @@ abstract class AuthRepository {
     required SecurityQuestions questions,
   });
 
+  Future<Map<String, String>> getSecurityQuestions(String username);
+
   Future<bool> verifySecurityAnswers({
     required String username,
-    required String answer1,
-    required String answer2,
+    required Map<String, String> providedAnswers,
+  });
+  
+  Future<bool> resetPassword({
+    required String username,
+    required String newPassword,
   });
 }
 

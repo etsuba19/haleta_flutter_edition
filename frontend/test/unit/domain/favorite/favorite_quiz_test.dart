@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:your_app_path/domain/favorite/favorite_quiz.dart';
+import 'package:frontend/domain/favorite/favorite_quiz.dart';
 
 void main() {
   test('FavoriteQuiz.empty returns default values', () {
@@ -10,3 +10,4 @@ void main() {
     expect(quiz.description, '');
   });
 }
+

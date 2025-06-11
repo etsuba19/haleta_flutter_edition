@@ -1,23 +1,24 @@
-import '../../domain/quiz/usecases/view_quiz_use_case.dart';
-import '../../domain/quiz/usecases/continue_quiz_use_case.dart';
+import '../../application/favorite/view_favorite_quiz.dart';
+import '../../application/favorite/continue_favorite_quiz.dart';
+import '../../domain/favorite/favorite_quiz.dart';
 
 class FavoriteQuizController {
-  final ViewQuizUseCase _viewQuizUseCase;
-  final ContinueQuizUseCase _continueQuizUseCase;
+  final ViewFavoriteQuiz _viewFavoriteQuiz;
+  final ContinueFavoriteQuiz _continueFavoriteQuiz;
 
   FavoriteQuizController({
-    required ViewQuizUseCase viewQuizUseCase,
-    required ContinueQuizUseCase continueQuizUseCase,
-  })  : _viewQuizUseCase = viewQuizUseCase,
-        _continueQuizUseCase = continueQuizUseCase;
+    required ViewFavoriteQuiz viewFavoriteQuiz,
+    required ContinueFavoriteQuiz continueFavoriteQuiz,
+  })  : _viewFavoriteQuiz = viewFavoriteQuiz,
+        _continueFavoriteQuiz = continueFavoriteQuiz;
 
   Future<void> viewQuiz(String quizId) async {
     if (quizId.isEmpty) {
       throw ArgumentError('Quiz ID is empty');
     }
 
-    // Replace with actual domain logic
-    await _viewQuizUseCase.execute(quizId);
+    final quiz = FavoriteQuiz(id: quizId, title: '', description: '');
+    await _viewFavoriteQuiz.call(quiz);
   }
 
   Future<void> continueQuiz(String quizId) async {
@@ -25,7 +26,7 @@ class FavoriteQuizController {
       throw ArgumentError('Quiz ID is empty');
     }
 
-    // Replace with actual domain logic
-    await _continueQuizUseCase.execute(quizId);
+    final quiz = FavoriteQuiz(id: quizId, title: '', description: '');
+    await _continueFavoriteQuiz.call(quiz);
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:your_app_path/domain/favorite/favorite_quiz.dart';
-import 'package:your_app_path/infrastructure/favorite/favorite_quiz_repository_impl.dart';
-import 'package:your_app_path/infrastructure/favorite/local_favorite_quiz_datasource.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:frontend/domain/favorite/favorite_quiz.dart';
+import 'package:frontend/infrastructure/favorite/favorite_quiz_repository_impl.dart';
+import 'package:frontend/infrastructure/favorite/local_favorite_quiz_datasource.dart';
 
 // Mock class
 class MockLocalFavoriteQuizDataSource extends Mock implements LocalFavoriteQuizDataSource {}
@@ -27,3 +27,6 @@ void main() {
     await repository.continueQuiz(quiz);
   });
 }
+
+
+
