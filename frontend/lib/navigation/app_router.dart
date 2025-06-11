@@ -241,6 +241,69 @@ final GoRouter router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      path: '/edit-profile',
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Edit Profile'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.go('/profile'),
+            ),
+          ),
+          body: const Center(
+            child: Text(
+              'Edit Profile Page\n(Coming Soon)',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/previous-exam',
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('የፈተና ማህደር'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.go('/profile'),
+            ),
+          ),
+          body: const Center(
+            child: Text(
+              'Previous Exam Archive\n(Coming Soon)',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/favorite-quiz',
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('የተመረጡ ፈተናዎች'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.go('/profile'),
+            ),
+          ),
+          body: const Center(
+            child: Text(
+              'Favorite Quizzes\n(Coming Soon)',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        );
+      },
+    ),
   ],
 );
 

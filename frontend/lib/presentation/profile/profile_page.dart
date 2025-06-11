@@ -1,6 +1,100 @@
 import 'package:flutter/material.dart';
-import '../core/widgets/SidebarDrawer.dart';
-import 'profile_widgets.dart';
+import 'package:frontend/presentation/core/widgets/SidebarDrawer.dart';
+import 'package:go_router/go_router.dart';
+
+// Profile Widgets
+class EditProfileButton extends StatelessWidget {
+  const EditProfileButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 56.0),
+      child: ElevatedButton(
+        onPressed: () => context.go('/edit-profile'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        child: const Text(
+          "መገለጫዎን ይቀይሩ",
+          style: TextStyle(fontSize: 14, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class ArchiveButton extends StatelessWidget {
+  const ArchiveButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      child: ElevatedButton(
+        onPressed: () => context.go('/previous-exam'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 240, 221, 224),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Text("▅ ▇ ▃", style: TextStyle(fontSize: 12, color: Color(0xFF7C1626))),
+            SizedBox(width: 16),
+            Text("የፈተና ማህደር", style: TextStyle(fontSize: 18, color: Color(0xFF7C1626))),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FavoriteButton extends StatelessWidget {
+  const FavoriteButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      child: ElevatedButton(
+        onPressed: () => context.go('/favorite-quiz'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 240, 221, 224),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        child: const Text(
+          "🖤 የተመረጡ ፈተናዎች",
+          style: TextStyle(fontSize: 18, color: Color(0xFF7C1626)),
+        ),
+      ),
+    );
+  }
+}
+
+class LogoutButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  const LogoutButton({super.key, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 240, 221, 224),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        child: const Text(
+          "ከመለያ ውጣ",
+          style: TextStyle(fontSize: 16, color: Color(0xFF7C1626)),
+        ),
+      ),
+    );
+  }
+}
 
 class ProfileScreen extends StatefulWidget {
   final void Function(String) onDrawerItemClick;
@@ -51,11 +145,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: 24),
                 const Text("ሰላማዊት", style: TextStyle(fontSize: 36, color: Colors.white)),
                 const SizedBox(height: 16),
-                EditProfileButton(),
+                const EditProfileButton(),
                 const SizedBox(height: 26),
-                ArchiveButton(),
+                const ArchiveButton(),
                 const SizedBox(height: 8),
-                FavoriteButton(),
+                const FavoriteButton(),
                 const Spacer(),
                 Image.asset('assets/images/logoimg.jpg', width: 170, height: 170),
                 const SizedBox(height: 10),
@@ -67,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (isDrawerOpen) ...[
           GestureDetector(
             onTap: closeDrawer,
-            child: Container(color: Colors.black.withOpacity(0.3)),
+            child: Container(color: Colors.black.withValues(alpha: 0.3)),
           ),
           SidebarDrawer(
             items: const ["ጥያቄ - ፈተና ክብደት", "መለያ", "የፈተና ማህደር", "ንባብ"],
@@ -83,4 +177,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ],
     );
   }
-}
+} 

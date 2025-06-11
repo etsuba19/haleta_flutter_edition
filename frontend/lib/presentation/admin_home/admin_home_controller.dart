@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 // Removed: import '../../../navigation/app_router.dart';
 import '../../../infrastructure/core/network/dio_client.dart';
@@ -22,20 +23,23 @@ class AdminHomeController extends StateNotifier<void> {
 
   AdminHomeController(this.ref, this.repository) : super(null);
 
-  // All navigation methods now just print to the console
+  // Navigate to User List page
   void navigateToUserList(BuildContext context) {
-    debugPrint("User List button pressed - No navigation for now.");
+    context.go('/user-list');
   }
 
+  // Navigate to Quiz List page
   void navigateToQuizList(BuildContext context) {
-    debugPrint("Quiz List button pressed - No navigation for now.");
+    context.go('/quiz-list');
   }
 
+  // Navigate to Resources page
   void navigateToResourceList(BuildContext context) {
-    debugPrint("Resource List button pressed - No navigation for now.");
+    context.go('/resources');
   }
 
-  void logout() {
-    debugPrint("Logout button pressed - No navigation for now.");
+  // Logout and return to home page
+  void logout(BuildContext context) {
+    context.go('/');
   }
 }

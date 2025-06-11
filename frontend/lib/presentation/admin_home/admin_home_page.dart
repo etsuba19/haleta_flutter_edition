@@ -54,7 +54,7 @@ class AdminHomePage extends ConsumerWidget {
                     const SizedBox(height: 50),
                     MenuButton(
                       text: 'Logout',
-                      onTap: () => controller.logout(),
+                      onTap: () => controller.logout(context),
                       narrow: true,
                       short: true,
                     ),

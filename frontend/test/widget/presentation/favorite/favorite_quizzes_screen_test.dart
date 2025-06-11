@@ -4,7 +4,6 @@ import 'package:mocktail/mocktail.dart';
 
 // Import your widgets
 import 'package:frontend/presentation/profile/profile_page.dart';
-import 'package:frontend/presentation/profile/profile_widgets.dart';
 
 // Mock callback classes with correct call signatures
 class MockStringCallback extends Mock {

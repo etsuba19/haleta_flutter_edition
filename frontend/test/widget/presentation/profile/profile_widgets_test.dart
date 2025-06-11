@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frontend/presentation/profile/profile_widgets.dart';
+import 'package:frontend/presentation/profile/profile_page.dart';
 
 void main() {
   testWidgets('EditProfileButton renders and can be tapped', (WidgetTester tester) async {
