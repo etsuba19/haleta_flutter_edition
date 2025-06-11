@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
 
-import 'package:your_app_path/presentation/previous_exam/previous_exam_screen.dart';
-import 'package:your_app_path/application/previous_exam/previous_exam_notifier.dart';
-import 'package:your_app_path/application/previous_exam/previous_exam_notifier.dart' as notifier;
+// Corrected import: now imports PreviousExamPage (the actual class name)
+import 'package:frontend/presentation/previous_exam/previous_exam_screen.dart'; // File path is correct
+import 'package:frontend/application/previous_exam/previous_exam_notifier.dart';
+import 'package:frontend/application/previous_exam/previous_exam_notifier.dart' as notifier;
 
-import '../mocks/mocks.mocks.dart';
+// Mock class using mocktail
+class MockPreviousExamNotifier extends Mock implements notifier.PreviousExamNotifier {}
 
 void main() {
   late MockPreviousExamNotifier mockNotifier;
 
   setUp(() {
     mockNotifier = MockPreviousExamNotifier();
-    when(mockNotifier.uiState).thenReturn(
+
+    when(() => mockNotifier.uiState).thenReturn(
       notifier.PreviousExamState(firstQuizId: '', secondQuizId: ''),
     );
+
+    // Register fallback values for method parameters if needed
+    registerFallbackValue('');
   });
 
   Widget createWidgetUnderTest() {
     return MaterialApp(
       home: ChangeNotifierProvider<notifier.PreviousExamNotifier>.value(
         value: mockNotifier,
-        child: const PreviousExamPage(),
+        child: const PreviousExamPage(), // Corrected: Using PreviousExamPage
       ),
     );
   }
@@ -37,18 +43,20 @@ void main() {
 
     // Interact with the first TextField (onFirstQuizIdChange)
     await tester.enterText(textFields.at(0), 'id1');
-    verify(mockNotifier.onFirstQuizIdChange('id1')).called(1);
+    verify(() => mockNotifier.onFirstQuizIdChange('id1')).called(1);
 
     // Interact with the third TextField (onSecondQuizIdChange)
     await tester.enterText(textFields.at(2), 'id2');
-    verify(mockNotifier.onSecondQuizIdChange('id2')).called(1);
+    verify(() => mockNotifier.onSecondQuizIdChange('id2')).called(1);
 
     // Tap View button
     await tester.tap(find.text('ተመልከት'));
-    verify(mockNotifier.onViewClicked()).called(1);
+    await tester.pump(); // Ensure any animations/events settle
+    verify(() => mockNotifier.onViewClicked()).called(1);
 
     // Tap Continue button
     await tester.tap(find.text('ቀጥል'));
-    verify(mockNotifier.onContinueClicked()).called(1);
+    await tester.pump();
+    verify(() => mockNotifier.onContinueClicked()).called(1);
   });
 }

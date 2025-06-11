@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:your_app_path/domain/favorite/get_favorite_exam.dart';
-import 'package:your_app_path/domain/favorite/favorite_quiz.dart';
-import 'package:your_app_path/infrastructure/favorite/local_favorite_quiz_datasource.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:frontend/domain/favorite/get_favorite_exams.dart';
+import 'package:frontend/domain/favorite/favorite_quiz.dart';
+import 'package:frontend/infrastructure/favorite/local_favorite_quiz_datasource.dart';
 
-// Mock class
+// Mock class using mocktail
 class MockLocalFavoriteQuizDataSource extends Mock implements LocalFavoriteQuizDataSource {}
 
 void main() {
@@ -22,9 +22,14 @@ void main() {
       FavoriteQuiz(id: '2', title: 'Quiz 2', description: 'Desc 2'),
     ];
 
-    when(mockRepository.getFavorites()).thenAnswer((_) async => quizzes);
+    // Since getFavorites() returns List<FavoriteQuiz> synchronously,
+    // use thenReturn instead of thenAnswer
+    when(() => mockRepository.getFavorites()).thenReturn(quizzes);
 
-    final result = await useCase.call();
+    final result = useCase.call();
 
     expect(result, quizzes);
-    verify(mockRepository.getFavorites()).calle
+    verify(() => mockRepository.getFavorites()).called(1);
+    verifyNoMoreInteractions(mockRepository);
+  });
+}

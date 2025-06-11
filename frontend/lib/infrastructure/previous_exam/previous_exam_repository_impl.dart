@@ -1,4 +1,4 @@
-import 'package:untitled/infrastructure/previous_exam/local_previous_exam_repository.dart';
+import 'package:frontend/infrastructure/previous_exam/local_previous_exam_repository.dart';
 
 import '../../domain/previous_exam/previous_exam.dart';
 import '../../domain/previous_exam/previous_exam_repository.dart';

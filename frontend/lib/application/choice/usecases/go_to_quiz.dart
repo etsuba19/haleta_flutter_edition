@@ -1,3 +1,4 @@
+
 import '../../../domain/choice/repositories/choice_repository.dart';
 
 class GoToQuiz {
@@ -5,7 +6,7 @@ class GoToQuiz {
 
   GoToQuiz(this.repository);
 
-  void call() {
-    repository.goToQuiz();
+  Future<void> call() async {
+    await repository.goToQuiz();
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../core/widgets/SidebarDrawer.dart';
-import '../core/widgets/option_card.dart';
+import '../core/widgets/option_card.dart'; // Ensure OptionCard is imported correctly
 import 'category_widgets.dart';
 import 'category_controller.dart';
 
 class CategoryPage extends StatefulWidget {
-  final VoidCallback onDifficultySelected;
+  final void Function(String) onDifficultySelected;
   final void Function(String) onDrawerItemClick;
   final String currentPage;
   const CategoryPage({
@@ -21,12 +21,29 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   bool isDrawerOpen = false;
+  late CategoryController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = CategoryController();
+    controller.addListener(() {
+      if (mounted) setState(() {});
+    });
+    controller.loadCategories();
+  }
+
+  @override
+  void dispose() {
+    // It's good practice to remove the specific listener you added.
+    controller.removeListener(() {});
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Background image
         Positioned.fill(
           child: Image.asset(
             'assets/images/bgimg.jpg',
@@ -44,7 +61,7 @@ class _CategoryPageState extends State<CategoryPage> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal:16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               children: [
                 const SizedBox(height: 10),
@@ -57,30 +74,20 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
                 const SizedBox(height: 40),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: OptionCard(
-                    title: 'ጀማሪ',
-                    subtitle: '3 ጥያቄ * 3 ደቂቃ',
-                    onClick: widget.onDifficultySelected,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: OptionCard(
-                    title: 'መካከለኛ',
-                    subtitle: '3 ጥያቄ * 3 ደቂቃ',
-                    onClick: widget.onDifficultySelected,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: OptionCard(
-                    title: 'አዋቂ',
-                    subtitle: '3 ጥያቄ * 3 ደቂቃ',
-                    onClick: widget.onDifficultySelected,
-                  ),
-                ),
+                if (controller.isLoading)
+                  const Center(child: CircularProgressIndicator())
+                else ...controller.categories.map((category) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: OptionCard(
+                      title: category.title,
+                      subtitle: category.subtitle,
+                      // Corrected: Directly pass the onDifficultySelected callback.
+                      // This assumes OptionCard's onClick takes a String argument.
+                      onClick: widget.onDifficultySelected,
+                    ),
+                  );
+                }).toList(),
 
                 const Spacer(),
                 buildBackButton(context),
@@ -92,7 +99,12 @@ class _CategoryPageState extends State<CategoryPage> {
 
         if (isDrawerOpen)
           SidebarDrawer(
-            items: const ["ጥያቄ - ፈተና ክብደት", "መለያ", "የፈተና ማህደር", "ንባብ"],
+            items: const [
+              "ጥያቄ - ፈተና ክብደት",
+              "መለያ",
+              "የፈተና ማህደር",
+              "ንባብ"
+            ],
             onItemClick: (item) {
               setState(() => isDrawerOpen = false);
 
@@ -104,7 +116,6 @@ class _CategoryPageState extends State<CategoryPage> {
               setState(() => isDrawerOpen = false);
             },
           ),
-
       ],
     );
   }

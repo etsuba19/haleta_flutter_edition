@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:your_app_path/domain/previous_exam/previous_exam.dart';
-import 'package:your_app_path/infrastructure/previous_exam/local_previous_exam_repository.dart';
+import 'package:frontend/domain/previous_exam/previous_exam.dart';
+import 'package:frontend/infrastructure/previous_exam/local_previous_exam_repository.dart';
 
 void main() {
   late LocalPreviousExamDataSource dataSource;

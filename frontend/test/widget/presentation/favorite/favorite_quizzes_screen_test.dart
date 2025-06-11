@@ -1,50 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'package:your_app_path/presentation/favorite/favorite_quiz_screen.dart';
-import 'package:your_app_path/application/favorite/favorite_quiz_notifier.dart';
+// Import your widgets
+import 'package:frontend/presentation/profile/profile_page.dart';
+import 'package:frontend/presentation/profile/profile_widgets.dart';
 
-import '../mocks/mocks.mocks.dart';
+// Mock callback classes with correct call signatures
+class MockStringCallback extends Mock {
+  void call(String arg);
+}
+
+class MockVoidCallback extends Mock {
+  void call();
+}
 
 void main() {
-  late MockFavoriteQuizNotifier mockNotifier;
+  late MockStringCallback mockOnDrawerItemClick;
+  late MockVoidCallback mockOnBackClick;
 
   setUp(() {
-    mockNotifier = MockFavoriteQuizNotifier();
+    mockOnDrawerItemClick = MockStringCallback();
+    mockOnBackClick = MockVoidCallback();
+
+    // Register fallback value without generic type parameter
+    registerFallbackValue('');
   });
 
   Widget createWidgetUnderTest() {
     return MaterialApp(
-      home: ChangeNotifierProvider<FavoriteQuizNotifier>.value(
-        value: mockNotifier,
-        child: const FavoriteQuizzesScreen(),
+      home: ProfileScreen(
+        onDrawerItemClick: mockOnDrawerItemClick.call,
+        onBackClick: mockOnBackClick.call,
+        currentPage: 'መለያ',
       ),
     );
   }
 
-  testWidgets('renders correctly and responds to input + buttons', (WidgetTester tester) async {
+  testWidgets('drawer opens and item clicks call callback', (tester) async {
     await tester.pumpWidget(createWidgetUnderTest());
 
-    // Type into the first text field
-    final firstField = find.byType(TextField).at(0);
-    await tester.enterText(firstField, 'quiz1');
-    verify(mockNotifier.updateFirstQuizId('quiz1')).called(1);
+    // Tap menu button to open drawer
+    final menuButton = find.byIcon(Icons.menu);
+    expect(menuButton, findsOneWidget);
 
-    // Type into the second text field
-    final secondField = find.byType(TextField).at(1);
-    await tester.enterText(secondField, 'quiz2');
-    verify(mockNotifier.updateSecondQuizId('quiz2')).called(1);
+    await tester.tap(menuButton);
+    await tester.pumpAndSettle();
 
-    // Tap "ተመልከት" button
-    final viewButton = find.text('ተመልከት');
-    await tester.tap(viewButton);
-    verify(mockNotifier.onViewClicked()).called(1);
+    // Tap drawer item different from current page
+    final drawerItem = find.text('ጥያቄ - ፈተና ክብደት');
+    expect(drawerItem, findsOneWidget);
 
-    // Tap "ቀጥል" button
-    final continueButton = find.text('ቀጥል');
-    await tester.tap(continueButton);
-    verify(mockNotifier.onContinueClicked()).called(1);
+    await tester.tap(drawerItem);
+    await tester.pumpAndSettle();
+
+    verify(() => mockOnDrawerItemClick.call('ጥያቄ - ፈተና ክብደት')).called(1);
+  });
+
+  testWidgets('logout button calls onBackClick', (tester) async {
+    await tester.pumpWidget(createWidgetUnderTest());
+
+    final logoutButton = find.byType(LogoutButton);
+    expect(logoutButton, findsOneWidget);
+
+    await tester.tap(logoutButton);
+    await tester.pump();
+
+    verify(() => mockOnBackClick.call()).called(1);
   });
 }

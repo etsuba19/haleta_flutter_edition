@@ -3,27 +3,63 @@ import 'package:provider/provider.dart';
 
 import '../../application/previous_exam/previous_exam_notifier.dart';
 
-class PreviousExamPage extends StatelessWidget {
+class PreviousExamPage extends StatefulWidget {
   const PreviousExamPage({super.key});
 
   @override
+  State<PreviousExamPage> createState() => _PreviousExamPageState();
+}
+
+class _PreviousExamPageState extends State<PreviousExamPage> {
+  late TextEditingController _firstQuizIdController;
+  late TextEditingController _secondQuizIdController;
+
+  @override
+  void initState() {
+    super.initState();
+    _firstQuizIdController = TextEditingController();
+    _secondQuizIdController = TextEditingController();
+
+    final viewModel = context.read<PreviousExamNotifier>();
+    _firstQuizIdController.text = viewModel.uiState.firstQuizId;
+    _secondQuizIdController.text = viewModel.uiState.secondQuizId;
+
+    _firstQuizIdController.addListener(() {
+      viewModel.onFirstQuizIdChange(_firstQuizIdController.text);
+    });
+    _secondQuizIdController.addListener(() {
+      viewModel.onSecondQuizIdChange(_secondQuizIdController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _firstQuizIdController.dispose();
+    _secondQuizIdController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<PreviousExamNotifier>();
     final uiState = viewModel.uiState;
 
     return Scaffold(
+      extendBodyBehindAppBar: true, // Extends body behind the AppBar
+      backgroundColor: Colors.transparent, // Makes Scaffold background transparent
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, // Makes AppBar itself transparent
+        elevation: 0, // Removes AppBar shadow
+      ),
       body: Stack(
         children: [
-          // ✅ Background image fully stretched
+          // Background image using correct path and covering full area
           Positioned.fill(
             child: Image.asset(
-              'assets/bg_img.jpg',
-              fit: BoxFit.cover,
+              'assets/images/bgimg.jpg', // Already correct path
+              fit: BoxFit.cover, // Ensures it covers the entire area
             ),
           ),
-
-          // ✅ SafeArea + Scrollable content
           SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -32,8 +68,9 @@ class PreviousExamPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 20),
+                    // Logo image using correct path
                     Image.asset(
-                      'assets/logoimg.jpg',
+                      'assets/images/logoimg.jpg', // Already correct path
                       height: 150,
                     ),
                     const Text(
@@ -45,26 +82,21 @@ class PreviousExamPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 70),
-
                     _quizTextField(
                       hintText: 'QuizID',
-                      value: uiState.firstQuizId,
-                      onChanged: viewModel.onFirstQuizIdChange,
+                      controller: _firstQuizIdController,
                     ),
                     const SizedBox(height: 30),
                     _quizTextField(
                       hintText: 'QuizID',
-                      value: uiState.firstQuizId,
-                      onChanged: viewModel.onFirstQuizIdChange,
+                      controller: _firstQuizIdController,
                     ),
                     const SizedBox(height: 30),
                     _quizTextField(
                       hintText: 'QuizID',
-                      value: uiState.secondQuizId,
-                      onChanged: viewModel.onSecondQuizIdChange,
+                      controller: _secondQuizIdController,
                     ),
-
-                    const SizedBox(height: 100), // push buttons further down
+                    const SizedBox(height: 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -96,7 +128,7 @@ class PreviousExamPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40), // space after buttons
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -107,15 +139,12 @@ class PreviousExamPage extends StatelessWidget {
     );
   }
 
-
   Widget _quizTextField({
     required String hintText,
-    required String value,
-    required Function(String) onChanged,
+    required TextEditingController controller,
   }) {
     return TextField(
-      controller: TextEditingController(text: value),
-      onChanged: onChanged,
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         filled: true,

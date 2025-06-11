@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:your_app_path/application/previous_exam/previous_exam_notifier.dart';
-import 'package:your_app_path/application/previous_exam/view_previous_exam.dart';
-import 'package:your_app_path/application/previous_exam/continue_previous_exam.dart';
-import 'package:your_app_path/domain/previous_exam/previous_exam.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:frontend/application/previous_exam/previous_exam_notifier.dart';
+import 'package:frontend/application/previous_exam/view_previous_exam.dart';
+import 'package:frontend/application/previous_exam/continue_previous_exam.dart';
+import 'package:frontend/domain/previous_exam/previous_exam.dart';
 
-// Mock classes
+// Mock classes using mocktail
 class MockViewPreviousExam extends Mock implements ViewPreviousExam {}
 class MockContinuePreviousExam extends Mock implements ContinuePreviousExam {}
 
@@ -21,6 +21,9 @@ void main() {
       view: mockView,
       continueUseCase: mockContinue,
     );
+
+    // Register fallback value for PreviousExam (if required)
+    registerFallbackValue(PreviousExam(id: ''));
   });
 
   test('onFirstQuizIdChange updates state and notifies listeners', () {
@@ -51,21 +54,23 @@ void main() {
     notifier.onFirstQuizIdChange('test123');
 
     final expectedExam = PreviousExam(id: 'test123');
-    when(mockView.call(expectedExam)).thenReturn(null);
+    when(() => mockView.call(expectedExam))
+        .thenAnswer((_) async => Future.value());
 
     notifier.onViewClicked();
 
-    verify(mockView.call(expectedExam)).called(1);
+    verify(() => mockView.call(expectedExam)).called(1);
   });
 
   test('onContinueClicked calls ContinuePreviousExam with correct ID', () {
     notifier.onSecondQuizIdChange('test456');
 
     final expectedExam = PreviousExam(id: 'test456');
-    when(mockContinue.call(expectedExam)).thenAnswer((_) async => Future.value());
+    when(() => mockContinue.call(expectedExam))
+        .thenAnswer((_) async => Future.value());
 
     notifier.onContinueClicked();
 
-    verify(mockContinue.call(expectedExam)).called(1);
+    verify(() => mockContinue.call(expectedExam)).called(1);
   });
 }

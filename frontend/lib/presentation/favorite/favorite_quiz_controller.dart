@@ -1,6 +1,6 @@
 import '../../domain/quiz/usecases/view_quiz_use_case.dart';
 import '../../domain/quiz/usecases/continue_quiz_use_case.dart';
-
+// import '../../domain/quiz/entities/quiz.dart';
 class FavoriteQuizController {
   final ViewQuizUseCase _viewQuizUseCase;
   final ContinueQuizUseCase _continueQuizUseCase;

@@ -18,6 +18,7 @@ dependencies:
   mongo_dart: ^0.10.0
   dartz: ^0.10.1
   equatable: ^2.0.5
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
@@ -37,4 +38,3 @@ flutter:
     - assets/images/ic_close.png
     - assets/images/ic_menu.png
     - assets/images/ic_user.png
-    

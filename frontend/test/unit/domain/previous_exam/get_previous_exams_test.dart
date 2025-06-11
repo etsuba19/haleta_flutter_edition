@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:your_app_path/domain/previous_exam/get_previous_exam.dart';
-import 'package:your_app_path/domain/previous_exam/previous_exam_repository.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:frontend/domain/previous_exam/get_previous_exams.dart';
+import 'package:frontend/domain/previous_exam/previous_exam_repository.dart';
 
-// Mock class
+// Mock class using mocktail
 class MockPreviousExamRepository extends Mock implements PreviousExamRepository {}
 
 void main() {
