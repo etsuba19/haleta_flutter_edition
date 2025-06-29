@@ -14,9 +14,7 @@ Group Members
 Features
 
 User Management (CRUD): Users can sign up, log in, and update their profile. Admins can create, read, update, and delete users. Users can retake quizzes to improve their scores.
-
 Quiz Management (CRUD): Admins can create, edit, and delete quiz questions. The system supports multiple-choice question types.
-
 
 Testing
 
